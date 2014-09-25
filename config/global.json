@@ -1,0 +1,11 @@
+{
+    "applications": {
+        "MealLink": {
+            "applicationId": "oOL3TebXo0CCT8Mm8OWN72Dq7H1LwNvaGrSUmZ8I", 
+            "masterKey": "E7JxRXrToQ5GD0HoV4pWCQDKcIpPPW9GWrsPSfNH"
+        }, 
+        "_default": {
+            "link": "MealLink"
+        }
+    }
+}
