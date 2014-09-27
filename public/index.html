@@ -5,6 +5,7 @@
 
   <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
 
+
   <script type="text/javascript" src="https://cdn.jsdelivr.net/parse/1.2.9/parse.min.js"></script>
   <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/ratchet/2.0.2/css/ratchet-theme-ios.css">
   <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/ratchet/2.0.2/css/ratchet-theme-ios.min.css">
@@ -25,6 +26,18 @@
     <!-- Makes your prototype chrome-less once bookmarked to your phone's home screen -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <style>
+    .btnEat{
+      margin-left: 120px;
+      margin-bottom: 10px;
+      margin-top: 10px;
+    }
+      .btnSubmit{
+      margin-left: 140px;
+      margin-bottom: 10px;
+      margin-top: 10px;
+    }
+    </style>
 
     <title>My ParseApp site</title>
   </head>
@@ -36,36 +49,62 @@
 
     <!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
     <div class="content">
-      <p class="content-padded">Thanks for downloading Ratchet. This is an example HTML page that's linked up to compiled Ratchet CSS and JS, has the proper meta tags and the HTML structure. Need some more help before you start filling this with your own content? Check out some Ratchet resources:</p>
-      <div class="card">
-        <button type="button" id="button">TestButton</button>
-          <li class="table-view-cell">
-            <a class="push-right" href="https://github.com/twbs/ratchet/">
-              <strong>Ratchet on Github</strong>
-            </a>
-          </li>
-          <li class="table-view-cell">
-            <a class="push-right" href="https://groups.google.com/forum/#!forum/goratchet">
-              <strong>Ratchet Google group</strong>
-            </a>
-          </li>
-          <li class="table-view-cell">
-            <a class="push-right" href="https://twitter.com/goratchet">
-              <strong>Ratchet on Twitter</strong>
-            </a>
-          </li>
-        </ul>
-      </div>
+      <div><button class="btn btn-primary btnEat" >Eat Now!</button></div>
+      <ul  class="table-view">
+        <li class="table-view-cell">
+          <label for="deal-date" id="startDate">Start Date</label>
+            <input type="date" class="form-control" id="start-date" required></li>
+        <li class="table-view-cell"> 
+          <label for="deal-date" id="startTime" >Start Time</label>
+          <input type="time" class="form-control" id="start-time" required></li>
+        <li class="table-view-cell"><label for="deal-date" id="endDate">End Date</label>
+        <input type="date" class="form-control" id="end-date" required></li>
+        <li class="table-view-cell"> <label for="deal-date" id="endTime">End Time</label>
+
+        <input type="time" class="form-control" id="end-time" required></li>
+      </ul>
+
+       <div><button class="btn btn-primary btnSubmit" id="submitButton" >Submit</button></div>
+
     </div>
+    <script type="text/javascript">
 
-<script>
-$("#button").on('click', function(){
-  var date = new Date();
-  var w = window.open("http://meallink.parseapp.com/friends.html");
-  w.myDate = date;
-});
+    $("#submitButton").on('click', function(){
 
-</script>
+       var startTime = new Date( $("#start-date").val() +":" + $("#start-time").val());
+      var endTime = new Date( $("#end-date").val() +":" + $("#end-time").val());
+      localStorage.setItem("startTime", startTime);
+       localStorage.setItem("endTime", endTime);
+       //alert(startTime);
+        window.location.href ="./friends.html";
 
+      /*
+      timeObject.startTime = startTime;
+      timeObject.endTime = endTime;
+      console.log("startTime:"+startTime);
+      console.log(timeObject);
+      window.location.href ="./friends.html";
+      */
+
+
+
+    });
+    function submitForm(){
+      var timeObject = {
+        startDate: $("#startDate").val(),
+        startTime: $("#startTime").val(),
+        endDate: $("#endDate").val(),
+        endTime: $("#endTime").val()  
+      }
+
+      var startTime = new Date( $("#startDate").val() +":" + $("#startTime").val());
+      var endTime = new Date( $("#endDate").val() +":" + $("#endTime").val());
+
+      
+      //window.location.href ="./friends.html?startTime="+startTime+"&endTime="+endTime;
+  
+    }
+
+    </script>>
   </body>
 </html>
