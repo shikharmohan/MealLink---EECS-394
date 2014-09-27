@@ -34,8 +34,26 @@
     // Do something with the returned Parse.Object values
 
   for (var i = 0; i < results.length; i++) { 
+    //get each object
     var object = results[i];
-    var str = "<li class=\"table-view-cell media\"><img class=\"media-object pull-left\" src=\"http://placehold.it/42x42\"><div class=\"media-body\">" + object.get('name') + "<p><a href=\"tel:" + object.get('phone_number') + "\">" + object.get('phone_number') + "</a></p><p>email: " + object.get('email') + "</p></div></li>";
+    //set what the time availability should display
+    //var timeDisplay = "Available: ";
+    var hourDisplay = object.get('start_time').getHours();
+    var AMPM = "AMPM";
+    if(hourDisplay > 12)
+    {
+      hourDisplay = hourDisplay - 12;
+      AMPM = "PM";
+    }
+    else
+    {
+      AMPM = "AM";
+    }
+    var timeDisplay = "Available: " + hourDisplay + ":" + object.get('start_time').getMinutes() + AMPM;
+
+
+
+    var str = "<li class=\"table-view-cell media\"><img class=\"media-object pull-left\" src=\"http://placehold.it/42x42\"><div class=\"media-body\">" + object.get('name') + "<p>" + timeDisplay + "<p><a href=\"tel:" + object.get('phone_number') + "\">tel: " + object.get('phone_number') + "</a></p><p>email: " + object.get('email') + "</p></div></li>";
 
       $(".table-view").append(str);
   }
