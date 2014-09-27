@@ -5,6 +5,7 @@
 
   <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
 
+
   <script type="text/javascript" src="https://cdn.jsdelivr.net/parse/1.2.9/parse.min.js"></script>
   <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/ratchet/2.0.2/css/ratchet-theme-ios.css">
   <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/ratchet/2.0.2/css/ratchet-theme-ios.min.css">
@@ -50,14 +51,60 @@
 
       <div><button class="btn btn-primary btnEat" >Eat Now!</button></div>
       <ul  class="table-view">
-        <li class="table-view-cell"><label for="deal-date">Start Date</label><input type="date" class="form-control" id="start-date"></li>
-        <li class="table-view-cell"> <label for="deal-date">Start Time</label><input type="time" class="form-control" id="start-time"></li>
-        <li class="table-view-cell"><label for="deal-date">End Date</label><input type="date" class="form-control" id="end-date"></li>
-        <li class="table-view-cell"> <label for="deal-date">End Time</label><input type="time" class="form-control" id="start-time"></li>
+        <li class="table-view-cell">
+          <label for="deal-date" id="startDate">Start Date</label>
+            <input type="date" class="form-control" id="start-date" required></li>
+        <li class="table-view-cell"> 
+          <label for="deal-date" id="startTime" >Start Time</label>
+          <input type="time" class="form-control" id="start-time" required></li>
+        <li class="table-view-cell"><label for="deal-date" id="endDate">End Date</label>
+        <input type="date" class="form-control" id="end-date" required></li>
+        <li class="table-view-cell"> <label for="deal-date" id="endTime">End Time</label>
+
+        <input type="time" class="form-control" id="end-time" required></li>
       </ul>
 
-       <div><button class="btn btn-primary btnSubmit" >Submit</button></div>
+       <div><button class="btn btn-primary btnSubmit" id="submitButton" >Submit</button></div>
 
     </div>
+    <script type="text/javascript">
+
+    $("#submitButton").on('click', function(){
+
+       var startTime = new Date( $("#start-date").val() +":" + $("#start-time").val());
+      var endTime = new Date( $("#end-date").val() +":" + $("#end-time").val());
+      localStorage.setItem("startTime", startTime);
+       localStorage.setItem("endTime", endTime);
+       //alert(startTime);
+        window.location.href ="./friends.html";
+
+      /*
+      timeObject.startTime = startTime;
+      timeObject.endTime = endTime;
+      console.log("startTime:"+startTime);
+      console.log(timeObject);
+      window.location.href ="./friends.html";
+      */
+
+
+
+    });
+    function submitForm(){
+      var timeObject = {
+        startDate: $("#startDate").val(),
+        startTime: $("#startTime").val(),
+        endDate: $("#endDate").val(),
+        endTime: $("#endTime").val()  
+      }
+
+      var startTime = new Date( $("#startDate").val() +":" + $("#startTime").val());
+      var endTime = new Date( $("#endDate").val() +":" + $("#endTime").val());
+
+      
+      //window.location.href ="./friends.html?startTime="+startTime+"&endTime="+endTime;
+  
+    }
+
+    </script>>
   </body>
 </html>
