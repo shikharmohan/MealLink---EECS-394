@@ -49,7 +49,7 @@
 
     <!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
     <div class="content">
-      <div><button class="btn btn-primary btnEat" >Eat Now!</button></div>
+      <div><button class="btn btn-primary btnEat" id="eatNowButton" >Eat Now!</button></div>
       <ul  class="table-view">
         <li class="table-view-cell">
           <label for="deal-date" id="startDate">Start Date</label>
@@ -68,6 +68,12 @@
 
     </div>
     <script type="text/javascript">
+    $("#eatNowButton").on('click', function(){
+      localStorage.setItem("startTime", new Date());
+        window.location.href ="./friends.html";
+    });
+
+
 
     $("#submitButton").on('click', function(){
 
