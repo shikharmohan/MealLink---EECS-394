@@ -17,6 +17,8 @@
 <!--initialize parse --> 
 <script>
   Parse.initialize("oOL3TebXo0CCT8Mm8OWN72Dq7H1LwNvaGrSUmZ8I","kYZjxpsriEyaK25EhmKw8TfrU9je7ycVcTI6DC65")
+
+
 </script>
 
 
@@ -36,12 +38,7 @@
     <div class="content">
       <p class="content-padded">Thanks for downloading Ratchet. This is an example HTML page that's linked up to compiled Ratchet CSS and JS, has the proper meta tags and the HTML structure. Need some more help before you start filling this with your own content? Check out some Ratchet resources:</p>
       <div class="card">
-        <ul class="table-view">
-          <li class="table-view-cell">
-            <a class="push-right" href="/friends.html">
-              <strong>Friends</strong>
-            </a>
-          </li>
+        <button type="button" id="button">TestButton</button>
           <li class="table-view-cell">
             <a class="push-right" href="https://github.com/twbs/ratchet/">
               <strong>Ratchet on Github</strong>
@@ -60,5 +57,15 @@
         </ul>
       </div>
     </div>
+
+<script>
+$("#button").on('click', function(){
+  var date = new Date();
+  var w = window.open("http://meallink.parseapp.com/friends.html");
+  w.myDate = date;
+});
+
+</script>
+
   </body>
 </html>

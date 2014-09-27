@@ -14,7 +14,44 @@
       <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
 <!--initialize parse --> 
 <script>
-  Parse.initialize("oOL3TebXo0CCT8Mm8OWN72Dq7H1LwNvaGrSUmZ8I","kYZjxpsriEyaK25EhmKw8TfrU9je7ycVcTI6DC65")
+  Parse.initialize("oOL3TebXo0CCT8Mm8OWN72Dq7H1LwNvaGrSUmZ8I","kYZjxpsriEyaK25EhmKw8TfrU9je7ycVcTI6DC65");
+  var user = Parse.Object.extend("User");
+  var query = new Parse.Query(user);
+  var myDate = new Date();
+  var lowerBound = new Date();
+  var upperBound = new Date();
+  lowerBound.setHours(myDate.getHours() - 1);
+  //lowerBound = (Date)lowerBound;
+  upperBound.setHours(myDate.getHours() + 1);
+  //upperBound = (Date)upperBound;
+
+  query.lessThan("start_time", upperBound);
+  query.greaterThan("start_time",lowerBound); 
+  query.find({
+  success: function(results) {
+    console.log("Successfully retrieved " + results.length + " users.");
+    // Do something with the returned Parse.Object values
+  for (var i = 0; i < results.length; i++) { 
+      $(".table-view").append(" <li class=\"table-view-cell media\">
+        <img class=\"media-object pull-left\" src=\"http://placehold.it/42x42\">
+        <div class=\"media-body\">" + results[i].name + "<p><a href=\"tel:" + result[i].phone_number + "></p><p>email: " + results[i].email + "</p></div></a></li>")
+  }
+    console.log(JSON.stringify(results));
+
+
+
+
+    // for (var i = 0; i < results.length; i++) { 
+    //   var object = results[i];
+    //   //alert(object.id + ' - ' + object.get('playerName'));
+    //   console.log();
+    // }
+  },
+  error: function(error) {
+    console.log("Error: " + error.code + " " + error.message);
+  }});
+
+
 </script>
     <!-- Makes your prototype chrome-less once bookmarked to your phone's home screen -->
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -31,31 +68,8 @@
 
     <!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
     <div class="content">
-      <p class="content-padded">Thanks for downloading Ratchet. This is an example HTML page that's linked up to compiled Ratchet CSS and JS, has the proper meta tags and the HTML structure. Need some more help before you start filling this with your own content? Check out some Ratchet resources:</p>
-      <div class="card">
-        <ul class="table-view">
-          <li class="table-view-cell">
-            <a class="push-right" href="http://goratchet.com">
-              <strong>Ratchet documentation</strong>
-            </a>
-          </li>
-          <li class="table-view-cell">
-            <a class="push-right" href="https://github.com/twbs/ratchet/">
-              <strong>Ratchet on Github</strong>
-            </a>
-          </li>
-          <li class="table-view-cell">
-            <a class="push-right" href="https://groups.google.com/forum/#!forum/goratchet">
-              <strong>Ratchet Google group</strong>
-            </a>
-          </li>
-          <li class="table-view-cell">
-            <a class="push-right" href="https://twitter.com/goratchet">
-              <strong>Ratchet on Twitter</strong>
-            </a>
-          </li>
-        </ul>
-      </div>
+      <ul class="table-view">
+      </ul>
     </div>
   </body>
 </html>
