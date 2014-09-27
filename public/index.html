@@ -23,6 +23,18 @@
     <!-- Makes your prototype chrome-less once bookmarked to your phone's home screen -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <style>
+    .btnEat{
+      margin-left: 120px;
+      margin-bottom: 10px;
+      margin-top: 10px;
+    }
+      .btnSubmit{
+      margin-left: 140px;
+      margin-bottom: 10px;
+      margin-top: 10px;
+    }
+    </style>
 
     <title>My ParseApp site</title>
   </head>
@@ -34,31 +46,18 @@
 
     <!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
     <div class="content">
-      <p class="content-padded">Thanks for downloading Ratchet. This is an example HTML page that's linked up to compiled Ratchet CSS and JS, has the proper meta tags and the HTML structure. Need some more help before you start filling this with your own content? Check out some Ratchet resources:</p>
-      <div class="card">
-        <ul class="table-view">
-          <li class="table-view-cell">
-            <a class="push-right" href="/friends.html">
-              <strong>Friends</strong>
-            </a>
-          </li>
-          <li class="table-view-cell">
-            <a class="push-right" href="https://github.com/twbs/ratchet/">
-              <strong>Ratchet on Github</strong>
-            </a>
-          </li>
-          <li class="table-view-cell">
-            <a class="push-right" href="https://groups.google.com/forum/#!forum/goratchet">
-              <strong>Ratchet Google group</strong>
-            </a>
-          </li>
-          <li class="table-view-cell">
-            <a class="push-right" href="https://twitter.com/goratchet">
-              <strong>Ratchet on Twitter</strong>
-            </a>
-          </li>
-        </ul>
-      </div>
+
+
+      <div><button class="btn btn-primary btnEat" >Eat Now!</button></div>
+      <ul  class="table-view">
+        <li class="table-view-cell"><label for="deal-date">Start Date</label><input type="date" class="form-control" id="start-date"></li>
+        <li class="table-view-cell"> <label for="deal-date">Start Time</label><input type="time" class="form-control" id="start-time"></li>
+        <li class="table-view-cell"><label for="deal-date">End Date</label><input type="date" class="form-control" id="end-date"></li>
+        <li class="table-view-cell"> <label for="deal-date">End Time</label><input type="time" class="form-control" id="start-time"></li>
+      </ul>
+
+       <div><button class="btn btn-primary btnSubmit" >Submit</button></div>
+
     </div>
   </body>
 </html>
