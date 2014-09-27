@@ -18,9 +18,9 @@
   Parse.initialize("oOL3TebXo0CCT8Mm8OWN72Dq7H1LwNvaGrSUmZ8I","kYZjxpsriEyaK25EhmKw8TfrU9je7ycVcTI6DC65");
   var user = Parse.Object.extend("User");
   var query = new Parse.Query(user);
-  var myDate = new Date();
-  var lowerBound = new Date();
-  var upperBound = new Date();
+  var myDate = new Date (localStorage.getItem("startTime"));
+  var lowerBound = new Date(myDate);
+  var upperBound = new Date(myDate);
   lowerBound.setHours(myDate.getHours() - 1);
   //lowerBound = (Date)lowerBound;
   upperBound.setHours(myDate.getHours() + 1);
@@ -32,10 +32,11 @@
   success: function(results) {
     console.log("Successfully retrieved " + results.length + " users.");
     // Do something with the returned Parse.Object values
+
   for (var i = 0; i < results.length; i++) { 
-      $(".table-view").append(" <li class=\"table-view-cell media\">
-        <img class=\"media-object pull-left\" src=\"http://placehold.it/42x42\">
-        <div class=\"media-body\">" + results[i].name + "<p><a href=\"tel:" + result[i].phone_number + "></p><p>email: " + results[i].email + "</p></div></a></li>")
+    var str = "<li class=\"table-view-cell media\"><img class=\"media-object pull-left\" src=\"http://placehold.it/42x42\"><div class=\"media-body\">" + results[i].name + "<p><a href=\"tel:" + results[i].phone_number + "></p><p>email: " + results[i].email + "</p></div></a></li>";
+
+      $(".table-view").append(str);
   }
     console.log(JSON.stringify(results));
 
@@ -73,8 +74,6 @@
       </ul>
     </div>
     <script>
-
-      alert(localStorage.getItem("startTime"));
     </script>
   </body>
 </html>
