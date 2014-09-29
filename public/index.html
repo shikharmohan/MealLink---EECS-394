@@ -78,8 +78,8 @@
               
         </li>
 
-        <li class="table-view-cell media liPadding">
-          
+     <li class="table-view-cell media liPadding">
+ 
             <img class="media-object pull-left" src="clock.png">
              <div class="media-body">
             <div class="input-row divHeight1" >    
@@ -176,8 +176,20 @@
 
     $("#submitButton").on('click', function(){
 
-       var startTime = new Date( $("#start-date").val() +":" + $("#start-time").val());
+      var startTime = new Date( $("#start-date").val() +":" + $("#start-time").val());
       var endTime = new Date( $("#end-date").val() +":" + $("#end-time").val());
+      if(startTime != null && startTime < new Date()){
+        alert("sorry, the start time must after the current time");
+        return false;
+      }
+      if(endTime != null && endTime < new Date()){
+        alert("sorry, the end time must after the current time");
+        return false;
+      }
+      if(startTime != null && endTime != null &&(startTime > endTime)){
+        alert("Start time must before end time!");
+        return false;
+      }
       localStorage.setItem("startTime", startTime);
        localStorage.setItem("endTime", endTime);
        //alert(startTime);
