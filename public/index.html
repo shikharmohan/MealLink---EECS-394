@@ -20,6 +20,7 @@
 <script>
   Parse.initialize("oOL3TebXo0CCT8Mm8OWN72Dq7H1LwNvaGrSUmZ8I","kYZjxpsriEyaK25EhmKw8TfrU9je7ycVcTI6DC65")
 
+
   window.fbAsyncInit = function() {
     Parse.FacebookUtils.init({ // this line replaces FB.init({
       appId      : '1487754898165871', // Facebook App ID
@@ -28,10 +29,10 @@
       xfbml      : true,
       version: "v2.1"
     });
- 
+  
     // Run code after the Facebook SDK is loaded.
   };
- 
+  
   (function(d, s, id){
     var js, fjs = d.getElementsByTagName(s)[0];
     if (d.getElementById(id)) {return;}
@@ -39,7 +40,6 @@
     js.src = "//connect.facebook.net/en_US/sdk.js";
     fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'facebook-jssdk'));
-
 
   // FB.getLoginStatus(function(response) {
   //   if (response.status === "connected") {
@@ -106,212 +106,48 @@
     <!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
     <div class="content" style="margin-top:380px;">
 
-      <div><button class="btn btn-positive btn-block" id="login-button"  style="width:180px;margin-left:auto;margin-right:auto">Connect Facebook</button></div>
-
-      <!-- <ul class="table-view">
-          <li class="table-view-cell media liPadding">
-
-            <img class="media-object pull-left" src="calendar.gif">
-             <div class="media-body">
-                    <div class="media-body">
-                    <div class="input-row divHeight1">  
-                    <label for="deal-date" id="startDate">Start Date</label>
-                    <input type="date"  id="start-date" required>
-                
-            </div>
-              
-        </li>
-
-     <li class="table-view-cell media liPadding">
- 
-            <img class="media-object pull-left" src="clock.png">
-             <div class="media-body">
-            <div class="input-row divHeight1" >    
-                
-         <label for="deal-date" id="startTime" >Start Time</label>
-          <input type="time"  id="start-time" required>
-            </div>
-          </div>
-         
-        
-        </li>
-
-        <li class="table-view-cell media liPadding">
-            
-            <img class="media-object pull-left" src="calendar.gif">
-             <div class="media-body">
-            <div class="input-row divHeight1" >    
-
-                <label for="deal-date" id="endDate">End Date</label>
-                <input type="date"  id="end-date" required>
-            </div>
-         
-         </div>
-       
-        </li>
-
-      <li class="table-view-cell media liPadding">
- 
-            <img class="media-object pull-left" src="clock.png">
-             <div class="media-body">
-            <div class="input-row divHeight1" >    
-              
-              <label for="deal-date" id="endTime">End Time</label>
-              <input type="time" s id="end-time" required>
-           
-              </div>
-         </div>
-      
-        </li>
-
-
-      </ul>
- -->
-      <!--
-      <div class="input-row divHeight1" >    
-      
-        <label for="deal-date" id="startDate">Start Date</label>
-        <input type="date"  id="start-date" required>
-        </div>
+      <div>
+      <button class="btn btn-positive btn-block" id="login-button"  style="width:180px;margin-left:auto;margin-right:auto">Connect Facebook</button>
       </div>
-      <div class="input-row divHeight1">
-        
-         <label for="deal-date" id="startTime" >Start Time</label>
-          <input type="time"  id="start-time" required>
-      </div>
-      <div class="input-row divHeight1">
-        
-        <label for="deal-date" id="endDate">End Date</label>
-        <input type="date"  id="end-date" required>
-      </div>
-      <div class="input-row divHeight1">
-      
-       <label for="deal-date" id="endTime">End Time</label>
-        <input type="time" s id="end-time" required>
-      </div>
-
-      -->
-      <!--
-      <ul  class="table-view">
-        <li class="table-view-cell input-row">
-          <label for="deal-date" id="startDate">Start Date</label>
-            <input type="date"  id="start-date" required></li>
-        <li class="table-view-cell"> 
-          <label for="deal-date" id="startTime" >Start Time</label>
-          <input type="time" class="form-control" id="start-time" required></li>
-        <li class="table-view-cell"><label for="deal-date" id="endDate">End Date</label>
-        <input type="date" class="form-control" id="end-date" required></li>
-        <li class="table-view-cell"> <label for="deal-date" id="endTime">End Time</label>
-
-        <input type="time" class="form-control" id="end-time" required></li>
-      </ul>
-      -->
-
-      <!--  <div><button class="btn btn-positive btn-block" id="submitButton" >Submit</button></div>
-
-       <div><button class="btn btn-positive btn-block" id="RandomButton" >Random Search</button></div> -->
-
     </div>
 
     <script type="text/javascript">
-    $("#RandomButton").on('click', function(){
-        window.location.href ="./random.html";
-    });
-    </script>
-
-    <script type="text/javascript">
-<<<<<<< HEAD
-    $("#eatNowButton").on('click', function(){
-      localStorage.setItem("startTime", new Date());
-        window.location.href ="./main.html";
-=======
     $("#login-button").on('click', function(){
-        Parse.FacebookUtils.logIn("email, public_profile, user_friends", {
-          success: function(user) {
-            if (!user.existed()) {
-              alert("User signed up and logged in through Facebook!");
-              console.log(JSON.stringify(user));
-
-              // FB.api('/me', function(response) {
-              //            if (!response.error) {
-              //              // We save the data on the Parse user
-              //              //user.set("displayName", response.name);
-              //              console.log(response.name);
-              //              user.save(null, {
-              //                success: function(user) {
-              //                  // And finally save the new score
-                               
-              //                },
-              //                error: function(user, error) {
-              //                  console.log("Oops, something went wrong saving your name.");
-              //                }
-              //              });
-
-
-            } else {
-              alert("User logged in through Facebook!");
-            }
-          },
-          error: function(user, error) {
-            alert("User cancelled the Facebook login or did not fully authorize.");
-            console.log(JSON.stringify(user));
-            console.log(JSON.stringify(error));
-          }
-        });
->>>>>>> f0181c4db22e98aef9733ae3160b7a8a284f2c30
-    });
-
-
-
-    $("#submitButton").on('click', function(){
-
-      var startTime = new Date( $("#start-date").val() +":" + $("#start-time").val());
-      var endTime = new Date( $("#end-date").val() +":" + $("#end-time").val());
-      if(startTime != null && startTime < new Date()){
-        alert("sorry, the start time must after the current time");
-        return false;
-      }
-      if(endTime != null && endTime < new Date()){
-        alert("sorry, the end time must after the current time");
-        return false;
-      }
-      if(startTime != null && endTime != null &&(startTime > endTime)){
-        alert("Start time must before end time!");
-        return false;
-      }
-      localStorage.setItem("startTime", startTime);
-       localStorage.setItem("endTime", endTime);
-       //alert(startTime);
-        window.location.href ="./friends.html";
-
-      /*
-      timeObject.startTime = startTime;
-      timeObject.endTime = endTime;
-      console.log("startTime:"+startTime);
-      console.log(timeObject);
-      window.location.href ="./friends.html";
-      */
-
-
-
-    });
-    function submitForm(){
-      var timeObject = {
-        startDate: $("#startDate").val(),
-        startTime: $("#startTime").val(),
-        endDate: $("#endDate").val(),
-        endTime: $("#endTime").val()  
-      }
-
-      var startTime = new Date( $("#startDate").val() +":" + $("#startTime").val());
-      var endTime = new Date( $("#endDate").val() +":" + $("#endTime").val());
-
       
-      //window.location.href ="./friends.html?startTime="+startTime+"&endTime="+endTime;
-  
-    }
-    
+      
+        // Parse.FacebookUtils.logIn("email, public_profile, user_friends", {
+        //   success: function(user) {
+        //     if (!user.existed()) {
+        //       alert("User signed up and logged in through Facebook!");
+        //       console.log(JSON.stringify(user));
 
+        //       // FB.api('/me', function(response) {
+        //       //            if (!response.error) {
+        //       //              // We save the data on the Parse user
+        //       //              //user.set("displayName", response.name);
+        //       //              console.log(response.name);
+        //       //              user.save(null, {
+        //       //                success: function(user) {
+        //       //                  // And finally save the new score
+                               
+        //       //                },
+        //       //                error: function(user, error) {
+        //       //                  console.log("Oops, something went wrong saving your name.");
+        //       //                }
+        //       //              });
+
+
+        //     } else {
+        //       alert("User logged in through Facebook!");
+        //     }
+        //   },
+        //   error: function(user, error) {
+        //     alert("User cancelled the Facebook login or did not fully authorize.");
+        //     console.log(JSON.stringify(user));
+        //     console.log(JSON.stringify(error));
+        //   }
+        // });
+    });
     </script>>
   </body>
 </html>
