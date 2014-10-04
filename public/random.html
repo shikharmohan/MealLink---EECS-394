@@ -1,5 +1,5 @@
 <html>
-  <head>
+<head>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.js"></script>
 
   <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
@@ -59,24 +59,6 @@
   }
     console.log(JSON.stringify(results));
 
-
-  //   <li class="table-view-cell media">
-  //   <a class="navigate-right">
-  //     <img class="media-object pull-left" src="http://placehold.it/42x42">
-  //     <div class="media-body">
-  //       Item 1
-  //       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore. Lorem ipsum dolor sit amet.</p>
-  //     </div>
-  //   </a>
-  // </li>
-
-
-
-    // for (var i = 0; i < results.length; i++) { 
-    //   var object = results[i];
-    //   //alert(object.id + ' - ' + object.get('playerName'));
-    //   console.log();
-    // }
   },
   error: function(error) {
     console.log("Error: " + error.code + " " + error.message);
@@ -84,30 +66,24 @@
 
 
 </script>
-<style>
-body {
-    background-image: url("Background_Food.jpg");
-}
-</style>
     <!-- Makes your prototype chrome-less once bookmarked to your phone's home screen -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
     <title>My ParseApp site</title>
   </head>
-  <body> 
-
-    <!-- Make sure all your bars are the first things in your <body> -->
-    <header class="bar bar-nav">
-      <h1 class="title">Friends</h1>
-    </header>
+<style>
+body {
+    background-image: url("Background_Food.jpg");
+    background-repeat: repeat-x;
+}
+</style>
+<body>
+<header class="bar bar-nav">
+    <h1 class="title">Meet New Friends</h1>
+</header>
 
     <!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
-    <div class="content">
-      <ul class="table-view">
-      </ul>
-    </div>
-    <script>
-    </script>
-  </body>
+    
+</body>
 </html>

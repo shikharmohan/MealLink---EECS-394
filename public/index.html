@@ -22,11 +22,18 @@
 
 </script>
 
-
+    
     <!-- Makes your prototype chrome-less once bookmarked to your phone's home screen -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <style>
+    
+    body {
+    background-image: url("Background_Food.jpg");
+    } 
+
+
+
     .btnEat{
       margin-left: 120px;
       margin-bottom: 10px;
@@ -52,9 +59,11 @@
     }
     </style>
 
+
     <title>My ParseApp site</title>
   </head>
   <body>
+ 
     <!-- Make sure all your bars are the first things in your <body> -->
     <header class="bar bar-nav" >
       <h1 class="title">MealLink</h1>
@@ -62,7 +71,7 @@
 
     <!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
     <div class="content" style="margin-top:10px;">
-      <div><button class="btn btn-positive btn-block" id="eatNowButton" >Eat Now!</button></div>
+      <div><button class="btn btn-positive btn-block" id="eatNowButton" >Search Friends to Eat Together!</button></div>
 
       <ul class="table-view">
           <li class="table-view-cell media liPadding">
@@ -165,7 +174,16 @@
 
        <div><button class="btn btn-positive btn-block" id="submitButton" >Submit</button></div>
 
+       <div><button class="btn btn-positive btn-block" id="RandomButton" >Random Search</button></div>
+
     </div>
+
+    <script type="text/javascript">
+    $("#RandomButton").on('click', function(){
+        window.location.href ="./random.html";
+    });
+    </script>
+
     <script type="text/javascript">
     $("#eatNowButton").on('click', function(){
       localStorage.setItem("startTime", new Date());
