@@ -71,67 +71,45 @@
     </header>
 
     <!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
-    <div class="content" style="margin-top:10px;">
-      <div><button class="btn btn-positive btn-block" id="eatNowButton" >Search Friends to Eat Together!</button></div>
-
-      <ul class="table-view">
-          <li class="table-view-cell media liPadding">
-
-            <img class="media-object pull-left" src="calendar.gif">
-             <div class="media-body">
-                    <div class="media-body">
-                    <div class="input-row divHeight1">  
-                    <label for="deal-date" id="startDate">Start Date</label>
-                    <input type="date"  id="start-date" required>
-                
-            </div>
-              
-        </li>
-
-     <li class="table-view-cell media liPadding">
- 
-            <img class="media-object pull-left" src="clock.png">
-             <div class="media-body">
-            <div class="input-row divHeight1" >    
-                
-         <label for="deal-date" id="startTime" >Start Time</label>
-          <input type="time"  id="start-time" required>
-            </div>
-          </div>
-         
-        
-        </li>
-
-        <li class="table-view-cell media liPadding">
-            
-            <img class="media-object pull-left" src="calendar.gif">
-             <div class="media-body">
-            <div class="input-row divHeight1" >    
-
-                <label for="deal-date" id="endDate">End Date</label>
-                <input type="date"  id="end-date" required>
-            </div>
-         
-         </div>
-       
-        </li>
-
-      <li class="table-view-cell media liPadding">
- 
-            <img class="media-object pull-left" src="clock.png">
-             <div class="media-body">
-            <div class="input-row divHeight1" >    
-              
-              <label for="deal-date" id="endTime">End Time</label>
-              <input type="time" s id="end-time" required>
-           
-              </div>
-         </div>
+    <div class="content" style="margin-top:30px;">
       
-        </li>
+     
 
 
-      </ul>
+
+       <p align="center" style = "font-size: 18px">Select time and search for people!</p>
+          <form style="margin: 20px">
+            <p align="center">Hour</p>
+            <select style="margin-left:40px;margin-bottom:30px;width:200px;" size=6 name="hour">
+            
+              <option value="1">1 hour</option>
+              <option value="2">2 hour</option>
+              <option value="3">3 hour</option>
+              <option value="4">4 hour</option>
+              <option value="5">5 hour</option>
+              <option value="6">6 hour</option>
+             
+            </select>
+            <br>
+            <p align="center">Minutes</p>
+            <select style="width:200px;margin-left:40px;margin-bottom:30px;" size=6>
+              
+              <option value="0">00 mins</option>
+              <option value="10">10 mins</option>
+              <option value="20">20 mins</option>
+              <option value="30">30 mins</option>
+              <option value="40">40 mins</option>
+              <option value="50m">50 mins</option>
+              
+            </select>
+
+            
+            <button class="btn btn-positive btn-block" id="submitButton" >Search Friends to Eat Together!</button>
+          </form>
+
+
+     
+    
 
       <!--
       <div class="input-row divHeight1" >    
@@ -173,10 +151,7 @@
       </ul>
       -->
 
-       <div><button class="btn btn-positive btn-block" id="submitButton" >Submit</button></div>
-
-       <div><button class="btn btn-positive btn-block" id="RandomButton" >Random Search</button></div>
-
+       <!-- <div><button class="btn btn-positive btn-block" id="RandomButton" >Random Search</button></div> -->
     </div>
 
     <script type="text/javascript">
@@ -240,8 +215,7 @@
       //window.location.href ="./friends.html?startTime="+startTime+"&endTime="+endTime;
   
     }
-    alert("test with Zexian1");
-
+    
     </script>>
   </body>
 </html>
