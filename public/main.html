@@ -92,7 +92,7 @@
             </select>
             <br>
             <p align="center">Minutes</p>
-            <select style="width:200px;margin-left:40px;margin-bottom:50px; height: 50px;" size=1>
+            <select style="width:200px;margin-left:40px;margin-bottom:50px; height: 50px;" size=1 name = "minutes">
               
               <option value="0">00 mins</option>
               <option value="10">10 mins</option>
@@ -107,7 +107,7 @@
             <button class="btn btn-positive btn-block" id="submitButton" >Search Friends to Eat Together!</button>
           </form>
 
-          <img src="picture.jpg" width="1000" height="25">
+          <!--<img src="picture.jpg" width="1000" height="25"> -->
 
      
     
@@ -156,20 +156,25 @@
     </div>
 
     <script type="text/javascript">
+    /*
     $("#RandomButton").on('click', function(){
         window.location.href ="./random.html";
     });
+*/
     </script>
 
     <script type="text/javascript">
+    /*
     $("#eatNowButton").on('click', function(){
       localStorage.setItem("startTime", new Date());
         window.location.href ="./friends.html";
     });
+*/
 
 
 
     $("#submitButton").on('click', function(){
+      /*
 
       var startTime = new Date( $("#start-date").val() +":" + $("#start-time").val());
       var endTime = new Date( $("#end-date").val() +":" + $("#end-time").val());
@@ -185,10 +190,13 @@
         alert("Start time must before end time!");
         return false;
       }
-      localStorage.setItem("startTime", startTime);
-       localStorage.setItem("endTime", endTime);
+      */
+      var hour = $("#hour").val();
+      var minutes = $("#minutes").val();
+      localStorage.setItem("hour", hour);
+       localStorage.setItem("minutes", minutes);
        //alert(startTime);
-        window.location.href ="./friends.html";
+        window.location.href ="./results.html";
 
       /*
       timeObject.startTime = startTime;
