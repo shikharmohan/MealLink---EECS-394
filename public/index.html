@@ -15,11 +15,44 @@
   <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/ratchet/2.0.2/js/ratchet.min.js"></script>
       <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
 
+<div id="fb-root"></div>
 <!--initialize parse --> 
 <script>
   Parse.initialize("oOL3TebXo0CCT8Mm8OWN72Dq7H1LwNvaGrSUmZ8I","kYZjxpsriEyaK25EhmKw8TfrU9je7ycVcTI6DC65")
 
+  window.fbAsyncInit = function() {
+    Parse.FacebookUtils.init({ // this line replaces FB.init({
+      appId      : '1487754898165871', // Facebook App ID
+      status     : false, // check Facebook Login status
+      cookie     : true, // enable cookies to allow Parse to access the session
+      xfbml      : true,
+      version: "v2.1"
+    });
+ 
+    // Run code after the Facebook SDK is loaded.
+  };
+ 
+  (function(d, s, id){
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {return;}
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
 
+
+  // FB.getLoginStatus(function(response) {
+  //   if (response.status === "connected") {
+  //     var uid = response.authResponse.userID;
+  //     var accessToken = response.authResponse.accessToken;
+  //     window.location.replace("/main.html");
+  //   }
+  //   else {
+  //     return;
+  //   }
+
+  // }
+  //   );
 
 </script>
 
@@ -72,7 +105,8 @@
 
     <!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
     <div class="content" style="margin-top:380px;">
-      <div><button class="btn btn-positive btn-block" id="eatNowButton"  style="width:180px;margin-left:auto;margin-right:auto">Connect Facebook</button></div>
+
+      <div><button class="btn btn-positive btn-block" id="login-button"  style="width:180px;margin-left:auto;margin-right:auto">Connect Facebook</button></div>
 
       <!-- <ul class="table-view">
           <li class="table-view-cell media liPadding">
@@ -186,9 +220,39 @@
     </script>
 
     <script type="text/javascript">
-    $("#eatNowButton").on('click', function(){
-      localStorage.setItem("startTime", new Date());
-        window.location.href ="./friends.html";
+    $("#login-button").on('click', function(){
+        Parse.FacebookUtils.logIn("email, public_profile, user_friends", {
+          success: function(user) {
+            if (!user.existed()) {
+              alert("User signed up and logged in through Facebook!");
+              console.log(JSON.stringify(user));
+
+              // FB.api('/me', function(response) {
+              //            if (!response.error) {
+              //              // We save the data on the Parse user
+              //              //user.set("displayName", response.name);
+              //              console.log(response.name);
+              //              user.save(null, {
+              //                success: function(user) {
+              //                  // And finally save the new score
+                               
+              //                },
+              //                error: function(user, error) {
+              //                  console.log("Oops, something went wrong saving your name.");
+              //                }
+              //              });
+
+
+            } else {
+              alert("User logged in through Facebook!");
+            }
+          },
+          error: function(user, error) {
+            alert("User cancelled the Facebook login or did not fully authorize.");
+            console.log(JSON.stringify(user));
+            console.log(JSON.stringify(error));
+          }
+        });
     });
 
 
