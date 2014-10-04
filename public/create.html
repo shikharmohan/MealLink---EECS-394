@@ -17,8 +17,11 @@
 
 <!--initialize parse --> 
 <script>
+  // Initialize Parse
+
   Parse.initialize("oOL3TebXo0CCT8Mm8OWN72Dq7H1LwNvaGrSUmZ8I","kYZjxpsriEyaK25EhmKw8TfrU9je7ycVcTI6DC65")
 
+ 
 
 
 </script>
@@ -71,119 +74,40 @@
     </header>
 
     <!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
-
-    <div class="content" style="margin-top:30px;">
-      
-     
-
-
     <div class="content" style="margin-top:10px;">
-      <div><button class="btn btn-positive btn-block" id="eatNowButton" >Search Friends to Eat Together!</button></div>
-      <form>
-        <input type="text" placeholder="Full name">
-        <input type="search" placeholder="Search">
-        <textarea rows="5"></textarea>
-        <button class="btn btn-positive btn-block">Choose existing</button>
-      </form>
-
-      <!--
+     <div>
       <ul class="table-view">
-          <li class="table-view-cell media liPadding">
+        <li class="table-view-cell media liPadding">
+            
+      
+          <div class="media-body">
+            <div class="input-row divHeight1" >    
 
-            <img class="media-object pull-left" src="calendar.gif">
-             <div class="media-body">
-                    <div class="media-body">
-                    <div class="input-row divHeight1">  
-                    <label for="deal-date" id="startDate">Start Date</label>
-                    <input type="date"  id="start-date" required>
-                
+                <label for="deal-date" id="phone-number">Phone Number</label>
+                <input type="date"  id="end-date" required>
             </div>
+         
+         </div>
+       
+        </li>
+
+      <li class="table-view-cell media liPadding">
+          <div class="media-body">
+            <div class="input-row divHeight1" >    
               
+              <label for="deal-date" id="endTime">End Time</label>
+              <input type="time" s id="end-time" required>
+           
+              </div>
+         </div>
+      
         </li>
 
 
-
-       <p align="center" style = "font-size: 18px">Select time and search for people!</p>
-          <form style="margin: 20px">
-            <p align="center">Hour</p>
-            <select style="margin-left:40px;margin-bottom:30px;width:200px; height:50px" size=1 name="hour">
-            
-              <option value="1">1 hour</option>
-              <option value="2">2 hour</option>
-              <option value="3">3 hour</option>
-              <option value="4">4 hour</option>
-              <option value="5">5 hour</option>
-              <option value="6">6 hour</option>
-             
-            </select>
-            <br>
-            <p align="center">Minutes</p>
-            <select style="width:200px;margin-left:40px;margin-bottom:50px; height: 50px;" size=1>
-              
-              <option value="0">00 mins</option>
-              <option value="10">10 mins</option>
-              <option value="20">20 mins</option>
-              <option value="30">30 mins</option>
-              <option value="40">40 mins</option>
-              <option value="50m">50 mins</option>
-              
-            </select>
-
-            
-            <button class="btn btn-positive btn-block" id="submitButton" >Search Friends to Eat Together!</button>
-          </form>
-
-
-          <img src="picture.jpg">
-
-     
-    
-
       </ul>
-      -->
 
 
-      <!--
-      <div class="input-row divHeight1" >    
-      
-        <label for="deal-date" id="startDate">Start Date</label>
-        <input type="date"  id="start-date" required>
-        </div>
-      </div>
-      <div class="input-row divHeight1">
-        
-         <label for="deal-date" id="startTime" >Start Time</label>
-          <input type="time"  id="start-time" required>
-      </div>
-      <div class="input-row divHeight1">
-        
-        <label for="deal-date" id="endDate">End Date</label>
-        <input type="date"  id="end-date" required>
-      </div>
-      <div class="input-row divHeight1">
-      
-       <label for="deal-date" id="endTime">End Time</label>
-        <input type="time" s id="end-time" required>
-      </div>
 
-      -->
-      <!--
-      <ul  class="table-view">
-        <li class="table-view-cell input-row">
-          <label for="deal-date" id="startDate">Start Date</label>
-            <input type="date"  id="start-date" required></li>
-        <li class="table-view-cell"> 
-          <label for="deal-date" id="startTime" >Start Time</label>
-          <input type="time" class="form-control" id="start-time" required></li>
-        <li class="table-view-cell"><label for="deal-date" id="endDate">End Date</label>
-        <input type="date" class="form-control" id="end-date" required></li>
-        <li class="table-view-cell"> <label for="deal-date" id="endTime">End Time</label>
-
-        <input type="time" class="form-control" id="end-time" required></li>
-      </ul>
-      -->
-
-       <!-- <div><button class="btn btn-positive btn-block" id="RandomButton" >Random Search</button></div> -->
     </div>
 
     <script type="text/javascript">
@@ -248,6 +172,7 @@
   
     }
     
-    </script>>
+
+    </script>
   </body>
 </html>
