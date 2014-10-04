@@ -84,76 +84,25 @@
             <div class="input-row divHeight1" >    
 
                 <label for="deal-date" id="phone-number">Phone Number</label>
-                <input type="date"  id="end-date" required>
+                <input type="text" required>
             </div>
          
          </div>
        
         </li>
-
-      <li class="table-view-cell media liPadding">
-          <div class="media-body">
-            <div class="input-row divHeight1" >    
-              
-              <label for="deal-date" id="endTime">End Time</label>
-              <input type="time" s id="end-time" required>
-           
-              </div>
-         </div>
-      
-        </li>
-
-
       </ul>
+      <button class="btn btn-positive btn-block" id="connectLinkedIn"  style="width:150px;margin-left:auto;margin-right:auto;margin-top:10px">Connect LinkedIn</button>
+      <button class="btn btn-positive btn-block" id="doneButton"  style="width:150px;margin-left:auto;margin-right:auto;margin-top:10px">Done</button>
 
 
 
     </div>
 
     <script type="text/javascript">
-    $("#RandomButton").on('click', function(){
-        window.location.href ="./random.html";
-    });
-    </script>
 
-    <script type="text/javascript">
-    $("#eatNowButton").on('click', function(){
-      localStorage.setItem("startTime", new Date());
-        window.location.href ="./friends.html";
-    });
+    $("#doneButton").on('click', function(){
 
-
-
-    $("#submitButton").on('click', function(){
-
-      var startTime = new Date( $("#start-date").val() +":" + $("#start-time").val());
-      var endTime = new Date( $("#end-date").val() +":" + $("#end-time").val());
-      if(startTime != null && startTime < new Date()){
-        alert("sorry, the start time must after the current time");
-        return false;
-      }
-      if(endTime != null && endTime < new Date()){
-        alert("sorry, the end time must after the current time");
-        return false;
-      }
-      if(startTime != null && endTime != null &&(startTime > endTime)){
-        alert("Start time must before end time!");
-        return false;
-      }
-      localStorage.setItem("startTime", startTime);
-       localStorage.setItem("endTime", endTime);
-       //alert(startTime);
-        window.location.href ="./friends.html";
-
-      /*
-      timeObject.startTime = startTime;
-      timeObject.endTime = endTime;
-      console.log("startTime:"+startTime);
-      console.log(timeObject);
-      window.location.href ="./friends.html";
-      */
-
-
+        window.location.href ="./main.html";
 
     });
     function submitForm(){
