@@ -76,11 +76,10 @@
 
 
        <p align="center" style = "font-size: 18px">Select time and search for people!</p>
-          <form style="margin: 20px">
+          <div style="margin: 20px">
             <p align="center">Hour</p>
-            <select style="margin-left:40px;margin-bottom:30px;width:200px; height:50px" size=1 name="hour">
-            
-              <option value="1">1 hour</option>
+            <select style="margin-left:40px;margin-bottom:30px;width:200px; height:50px" size=1 id="hour">
+              <option value="1" selected>1 hour</option>
               <option value="2">2 hour</option>
               <option value="3">3 hour</option>
               <option value="4">4 hour</option>
@@ -90,9 +89,9 @@
             </select>
             <br>
             <p align="center">Minutes</p>
-            <select style="width:200px;margin-left:40px;margin-bottom:50px; height: 50px;" size=1 name = "minutes">
+            <select style="width:200px;margin-left:40px;margin-bottom:50px; height: 50px;" size=1 id = "minutes">
               
-              <option value="0">00 mins</option>
+              <option value="0" selected>00 mins</option>
               <option value="10">10 mins</option>
               <option value="20">20 mins</option>
               <option value="30">30 mins</option>
@@ -103,54 +102,9 @@
 
             
             <button class="btn btn-positive btn-block" id="submitButton" >Search Friends to Eat Together!</button>
-          </form>
+          </div>
 
           <!--<img src="picture.jpg" width="1000" height="25"> -->
-
-     
-    
-
-      <!--
-      <div class="input-row divHeight1" >    
-      
-        <label for="deal-date" id="startDate">Start Date</label>
-        <input type="date"  id="start-date" required>
-        </div>
-      </div>
-      <div class="input-row divHeight1">
-        
-         <label for="deal-date" id="startTime" >Start Time</label>
-          <input type="time"  id="start-time" required>
-      </div>
-      <div class="input-row divHeight1">
-        
-        <label for="deal-date" id="endDate">End Date</label>
-        <input type="date"  id="end-date" required>
-      </div>
-      <div class="input-row divHeight1">
-      
-       <label for="deal-date" id="endTime">End Time</label>
-        <input type="time" s id="end-time" required>
-      </div>
-
-      -->
-      <!--
-      <ul  class="table-view">
-        <li class="table-view-cell input-row">
-          <label for="deal-date" id="startDate">Start Date</label>
-            <input type="date"  id="start-date" required></li>
-        <li class="table-view-cell"> 
-          <label for="deal-date" id="startTime" >Start Time</label>
-          <input type="time" class="form-control" id="start-time" required></li>
-        <li class="table-view-cell"><label for="deal-date" id="endDate">End Date</label>
-        <input type="date" class="form-control" id="end-date" required></li>
-        <li class="table-view-cell"> <label for="deal-date" id="endTime">End Time</label>
-
-        <input type="time" class="form-control" id="end-time" required></li>
-      </ul>
-      -->
-
-       <!-- <div><button class="btn btn-positive btn-block" id="RandomButton" >Random Search</button></div> -->
     </div>
 
 
@@ -180,20 +134,7 @@
       var minutes = $("#minutes").val();
       localStorage.setItem("hour", hour);
       localStorage.setItem("minutes", minutes);
-       //alert(startTime);
-      //window.location.href ="./friends.html";
-      ToUrl('http://meallink.parseapp.com/results.html');
-
-
-      /*
-      timeObject.startTime = startTime;
-      timeObject.endTime = endTime;
-      console.log("startTime:"+startTime);
-      console.log(timeObject);
-      window.location.href ="./friends.html";
-      */
-
-
+      windows.location.href = "./result.html"
 
     });
 </script>
