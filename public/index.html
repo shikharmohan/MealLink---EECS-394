@@ -19,9 +19,9 @@
 
 
 
-<script>
-  Parse.initialize("oOL3TebXo0CCT8Mm8OWN72Dq7H1LwNvaGrSUmZ8I","kYZjxpsriEyaK25EhmKw8TfrU9je7ycVcTI6DC65")
-</script>
+  <script>
+    Parse.initialize("oOL3TebXo0CCT8Mm8OWN72Dq7H1LwNvaGrSUmZ8I","kYZjxpsriEyaK25EhmKw8TfrU9je7ycVcTI6DC65")
+  </script>
 
 
 
@@ -112,50 +112,57 @@
 
 
 <div id="fb-root"></div>
-<!-- get facebook element --> 
+  <!-- get facebook element --> 
 
 
-// <script>
+<script>
 
 // This is called with the results from from FB.getLoginStatus().
-  function statusChangeCallback(response) {
-    console.log('statusChangeCallback');
-    console.log(response);
+function statusChangeCallback(response) {
+  console.log('statusChangeCallback');
+  console.log(response);
     // The response object is returned with a status field that lets the
     // app know the current login status of the person.
     // Full docs on the response object can be found in the documentation
     // for FB.getLoginStatus().
     if (response.status === 'connected') {
       // Logged into your app and Facebook.
-      testAPI();
+      console.log('oh yeah~~ success!');
+      window.location.href="./create.html";
+
+      //testAPI();
     } else if (response.status === 'not_authorized') {
       // The person is logged into Facebook, but not your app.
-      document.getElementById('status').innerHTML = 'Please log ' +
-        'into this app.';
+      console.log('not loging yet1');
+      FB.login();
+      //document.getElementById('status').innerHTML = 'Please log ' +
+      //'into this app.';
     } else {
       // The person is not logged into Facebook, so we're not sure if
       // they are logged into this app or not.
-      document.getElementById('status').innerHTML = 'Please log ' +
-        'into Facebook.';
+      console.log('not loging yet2');
+      FB.login();
+
+      //document.getElementById('status').innerHTML = 'Please log ' +'into Facebook.';
     }
   }
 
   // This function is called when someone finishes with the Login
   // Button.  See the onlogin handler attached to it in the sample
   // code below.
-  function checkLoginState() {
+function checkLoginState() {
     FB.getLoginStatus(function(response) {
       statusChangeCallback(response);
     });
   }
 
-  window.fbAsyncInit = function() {
-  FB.init({
-    appId      : '1487754898165871',
-    cookie     : true,  // enable cookies to allow the server to access 
+window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '1487754898165871',
+      cookie     : true,  // enable cookies to allow the server to access 
                         // the session
-    xfbml      : true,  // parse social plugins on this page
-    version    : 'v2.1' // use version 2.1
+      xfbml      : true,  // parse social plugins on this page
+      version    : 'v2.1' // use version 2.1
   });
 
   // Now that we've initialized the JavaScript SDK, we call 
@@ -174,7 +181,7 @@
     statusChangeCallback(response);
   });
 
-  };
+};
 
   // Load the SDK asynchronously
   (function(d, s, id) {
@@ -192,38 +199,20 @@
     FB.api('/me', function(response) {
       console.log('Successful login for: ' + response.name);
       document.getElementById('status').innerHTML =
-        'Thanks for logging in, ' + response.name + '!';
+      'Thanks for logging in, ' + response.name + '!';
     });
   }
 
-
-//       window.fbAsyncInit = function() {
-//         FB.init({
-//           appId      : '1487754898165871',
-//           xfbml      : true,
-//           status     : true,
-//           version    : 'v2.1'
-//         });
-//       };
-
-//       (function(d, s, id){
-//          var js, fjs = d.getElementsByTagName(s)[0];
-//          if (d.getElementById(id)) {return;}
-//          js = d.createElement(s); js.id = id;
-//          js.src = "//connect.facebook.net/en_US/sdk.js";
-//          fjs.parentNode.insertBefore(js, fjs);
-//        }(document, 'script', 'facebook-jssdk'));
-
-//   </script>
+  </script>
 
 
 
-  <!-- Make sure all your bars are the first things in your <body> -->
-  <header class="bar bar-nav" >
-    <h1 class="title">MealLink</h1>
-  </header>
+<!-- Make sure all your bars are the first things in your <body> -->
+<header class="bar bar-nav" >
+  <h1 class="title">MealLink</h1>
+</header>
 
-  <!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
+<!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
  <!--  <div class="content" style="margin-top:380px;">
 
     <div>
@@ -232,17 +221,17 @@
   </div> -->
 
 
-<div class="content" style="margin-top:380px;">
+  <div class="content" style="margin-top:380px;">
 
     <div>
-  <fb:login-button scope="public_profile,email" style="margin-left:50%;margin-right:50%; size=xlarge" onlogin="checkLoginState();">
-      </fb:login-button>
- </div>
+      <fb:login-button scope="public_profile,email" style="margin-left:50%;margin-right:50%; size=xlarge" onlogin="checkLoginState();">
+    </fb:login-button>
   </div>
+</div>
 
 
-  <script type="text/javascript">
-    $("#login-button").on('click', function(){
+<script type="text/javascript">
+  $("#login-button").on('click', function(){
 
 
         // Parse.FacebookUtils.logIn("email, public_profile, user_friends", {
