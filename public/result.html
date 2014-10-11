@@ -16,13 +16,18 @@
   <script src="./jquery-ui-1.9.2.js"></script>
   <link rel="stylesheet" type="text/css" href="./jqueryUi.css">
   <link rel="stylesheet" type="text/css" href="./jquery.ui.tabs.css">
-   <link rel="stylesheet" type="text/css" href="./jquery.ui.theme.css">
+  <link rel="stylesheet" type="text/css" href="./jquery.ui.theme.css">
   <link rel="stylesheet" id="skin" href="./jquery-ui-1.9.2.custom.min4.css" />
   <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
 
 <!--initialize parse --> 
 <script>
   Parse.initialize("oOL3TebXo0CCT8Mm8OWN72Dq7H1LwNvaGrSUmZ8I","kYZjxpsriEyaK25EhmKw8TfrU9je7ycVcTI6DC65")
+
+  
+
+
+
 </script>
 
     
@@ -76,124 +81,7 @@
           <br>
           <br>
           <div id="tabs-1">
-            <table width ="100%">
-              <tr style="font-weight:bold; color:green; height:30px;">
-                <td></td>
-                <td>Name</td>
-                <td>Time</td>
-                <td>Eat together!</td>
-              </tr>
-              <tr>
-                <td><img src="link.png"></td>
-                <td>wish</td>
-                <td>10-11</td>
-                <td><button class="btn btn-positive">Select</button></td>
-              </tr>
-               <tr>
-                <td><img src="link.png"></td>
-                <td>....</td>
-                <td>....</td>
-                 <td><button class="btn btn-positive">Select</button></td>
-              </tr>
-               <tr>
-                <td><img src="link.png"></td>
-                <td>....</td>
-                <td>....</td>
-                <td><button class="btn btn-positive">Select</button></td>
-              </tr>
-               <tr>
-                <td><img src="link.png"></td>
-                <td>....</td>
-                <td>....</td>
-                 <td><button class="btn btn-positive">Select</button></td>
-              </tr>
-               <tr>
-                <td><img src="link.png"></td>
-                <td>....</td>
-                <td>....</td>
-                <td><button class="btn btn-positive">Select</button></td>
-              </tr>
-            </table>
-          </div>
-          <div id="tabs-2">
-            <table width ="100%">
-              <tr style="font-weight:bold; color:green;">
-                <td></td>
-                <td>Name</td>
-                <td>Time</td>
-                <td>Eat together!</td>
-              </tr>
-              <tr>
-                <td><img src="link.png"></td>
-                <td>wish</td>
-                <td>10-11</td>
-                <td><button class="btn btn-positive">Select</button></td>
-              </tr>
-               <tr>
-                <td><img src="link.png"></td>
-                <td>....</td>
-                <td>....</td>
-                 <td><button class="btn btn-positive">Select</button></td>
-              </tr>
-               <tr>
-                <td><img src="link.png"></td>
-                <td>....</td>
-                <td>....</td>
-                <td><button class="btn btn-positive">Select</button></td>
-              </tr>
-               <tr>
-                <td><img src="link.png"></td>
-                <td>....</td>
-                <td>....</td>
-                 <td><button class="btn btn-positive">Select</button></td>
-              </tr>
-               <tr>
-                <td><img src="link.png"></td>
-                <td>....</td>
-                <td>....</td>
-                <td><button class="btn btn-positive">Select</button></td>
-              </tr>
-            </table>
-          </div>
-          <div id="tabs-3">
-                       <table width ="100%">
-              <tr style="font-weight:bold; color:green;">
-                <td></td>
-                <td>Name</td>
-                <td>Time</td>
-                <td>Eat together!</td>
-              </tr>
-              <tr>
-                <td><img src="link.png"></td>
-                <td>wish</td>
-                <td>10-11</td>
-                <td><button class="btn btn-positive">Select</button></td>
-              </tr>
-               <tr>
-                <td><img src="link.png"></td>
-                <td>....</td>
-                <td>....</td>
-                 <td><button class="btn btn-positive">Select</button></td>
-              </tr>
-               <tr>
-                <td><img src="link.png"></td>
-                <td>....</td>
-                <td>....</td>
-                <td><button class="btn btn-positive">Select</button></td>
-              </tr>
-               <tr>
-                <td><img src="link.png"></td>
-                <td>....</td>
-                <td>....</td>
-                 <td><button class="btn btn-positive">Select</button></td>
-              </tr>
-               <tr>
-                <td><img src="link.png"></td>
-                <td>....</td>
-                <td>....</td>
-                <td><button class="btn btn-positive">Select</button></td>
-              </tr>
-            </table>
+            <button type="button" id="SMStestbutton">Test SMS</button>
           </div>
         </div>
     </div>
@@ -203,6 +91,22 @@
       $(function() {
         $( "#tabs" ).tabs();
       });
+
+      $('#SMStestbutton').click(function(){
+        console.log("button works");
+        var msg = "Hi " + "insert_name" + "! Let's meet for lunch at " + "insert_time" + ". Message me back at " + "insert_sender_phone_number" + "!" 
+        var sendtonumber = "+1" + "9095699970"
+        Parse.Cloud.run('sendSMS', { smsmessage: msg, number: sendtonumber}, {
+          success: function(result) {
+            // result is 'Hello world!'
+            console.log("" + JSON.stringify(result));
+          },
+          error: function(error) {
+            console.log("" + JSON.stringify(error));
+          }
+        });
+      });
+
     </script>
    
   </body>
