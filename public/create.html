@@ -18,6 +18,7 @@
   <!--- linkedIn framework-->
   <script type="text/javascript" src="http://platform.linkedin.com/in.js">
   api_key: 75lsoflvpc7k4c
+  
  </script>
 
  <!--
@@ -155,7 +156,13 @@ window.fbAsyncInit = function() {
        
         </li>
       </ul>
-      <button class="btn btn-positive btn-block" id="connectLinkedIn"  style="background-color:#3366FF;width:150px;margin-left:auto;margin-right:auto;margin-top:10px">Connect LinkedIn</button>
+      <!--
+      <button class="btn btn-positive btn-block" id="connectLinkedIn"  style="background-color:#3366FF;width:150px;margin-left:auto;margin-right:auto;margin-top:10px" onclick="connectLinkedIn()">Connect LinkedIn</button>
+
+      -->
+      <div align = center >
+        <script type="IN/Login" data-onAuth="connectLinkedIn"></script>
+      </div>
       <button class="btn btn-positive btn-block" id="doneButton"  style="width:150px;margin-left:auto;margin-right:auto;margin-top:10px">Done</button>
     </div>
     <!--
@@ -203,18 +210,78 @@ window.fbAsyncInit = function() {
 
 }
 
+
     -->
 
-     <script type="in/Login">
-    Hello, <?js= firstName ?> <?js= lastName ?>.
+    <!--
+    use to authorize
+    <script type="text/javascript" src="http://platform.linkedin.com/in.js">
+      api_key: your_api_key_goes_here 
+      authorize: true
     </script>
+    -->
 
     <script type="text/javascript">
     $("#connectLinkedIn").on('click', function(){
       FB.logout();
 
     });
+    function connectLinkedIn(){
+      IN.API.Profile("me")
+      .fields(["id", "firstName", "lastName", "pictureUrl","headline","publicProfileUrl"])
+      .result(function(result) {
+      profile = result.values[0];
 
+      /*
+      profHTML = "<p><a href=\"" + profile.publicProfileUrl + "\">";
+      profHTML += "<img class=img_border align=\"left\" src=\"" + profile.pictureUrl + "\"></a>";      
+      profHTML += "<a href=\"" + profile.publicProfileUrl + "\">";
+      profHTML += "<h2 class=myname>" + profile.firstName + " " + profile.lastName + "</a> </h2>";
+      profHTML += "<span class=myheadline>" + profile.headline + "</span>";
+      */
+
+      Parse.User.current().set('LinkedInid', profile.id);
+      Parse.User.current().set('headline', profile.headline);
+      Parse.User.current().set('pictureURL', profile.publicProfileUrl);
+      Parse.User.current().set('location', profile.location);
+      Parse.User.current().set('firstName', profile.firstName);
+       Parse.User.current().set('lastName', profile.lastName);
+      Parse.User.current().save();
+
+
+     // $("#profile").html(profHTML);
+    });
+
+    //linkedin friends
+    var connectionString= "";
+    IN.API.Connections("me")
+    .fields(["pictureUrl","publicProfileUrl", "id", "firstName", "lastName", "headline"])
+    .params({"count":30})
+    .result(function(result) {
+    profHTML = "";
+      for (var index in result.values) {
+          var friend = {};
+          friend.id = result.values[index].id;
+          friend.headline = result.values[index].headline;
+          friend.pictureURL = result.values[index].publicProfileUrl;
+          friend.location = result.values[index].location;
+          friend.firstName = result.values[index].firstName;
+          friend.lastName = result.values[index].lastName;
+          connectionString += fridend;
+          /*
+          profile = result.values[index]
+          if (profile.pictureUrl) {
+              profHTML += "<p><a href=\"" + profile.publicProfileUrl + "\">";
+              profHTML += "<img class=img_border height=30 align=\"left\" src=\"" + profile.pictureUrl + "\"></a>";   
+          }    
+          */
+      }
+     // $("#connections").html(profHTML);
+      Parse.User.current().set('connections', connectionString);
+      Parse.User.current().save();
+    });
+
+    }
     $("#doneButton").on('click', function(){
 
         window.location.href ="./main.html";
@@ -223,5 +290,9 @@ window.fbAsyncInit = function() {
     
 
     </script>
+
+    <div id="profile">
+    </div>
+</body>
   </body>
 </html>

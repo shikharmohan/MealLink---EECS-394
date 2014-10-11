@@ -14,8 +14,6 @@
   <script src="http://cdnjs.cloudflare.com/ajax/libs/ratchet/2.0.2/js/ratchet.js"></script>
   <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/ratchet/2.0.2/js/ratchet.min.js"></script>
       <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
-  
-
 
 
   <script>
@@ -91,6 +89,7 @@
     if (response.status === "connected") {
       var uid = response.authResponse.userID;
       var accessToken = response.authResponse.accessToken;
+      window.location.href = './create.html'
     }
     else {
       return;
@@ -122,7 +121,7 @@
     
     <div id="overlay" >
   
-    <button class="btn btn-positive btn-block" id="login-button"  style="width:180px;margin-left:auto;margin-right:auto">Connect Facebook</button>
+    <button class="btn btn-positive btn-block" id="login-button"  style="width:180px;margin-top:200px;margin-left:auto;margin-right:auto">Connect Facebook</button>
     </div>
 
 
@@ -166,7 +165,7 @@
             console.log(JSON.stringify(error));
           }
         });
-        window.href = './create.html'
+        window.location.href = './create.html'
 });
 </script>
 </body>
