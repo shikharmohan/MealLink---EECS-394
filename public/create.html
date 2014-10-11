@@ -83,15 +83,37 @@
           <div class="media-body">
             <div class="input-row divHeight1" >    
 
-                <label for="deal-date" id="phone-number">Phone Number</label>
-                <input type="text" required>
+                <!-- <label for="deal-date" id="phone-number">Phone Number</label> -->
+                <input  type="text" class="inputs" placeholder="Phone Number"   >
+
+                <style> 
+                 
+                 .inputs {
+                    height: 30px;
+                    border: 3px solid #EBE6E2;
+                    border-radius: 5px;
+                    -webkit-transition: all 0.3s ease-out;
+                    -moz-transition: all 0.3s ease-out;
+                    -ms-transition: all 0.3s ease-out;
+                    -o-transition: all 0.3s ease-out;
+                    transition: all 0.3s ease-out;
+                    width: 270px;
+                }
+
+                .inputs:focus {
+                    border-color: #BBB;
+                    outline: none;
+                }
+                </style> 
+
+
             </div>
          
          </div>
        
         </li>
       </ul>
-      <button class="btn btn-positive btn-block" id="connectLinkedIn"  style="width:150px;margin-left:auto;margin-right:auto;margin-top:10px">Connect LinkedIn</button>
+      <button class="btn btn-positive btn-block" id="connectLinkedIn"  style="background-color:#3366FF;width:150px;margin-left:auto;margin-right:auto;margin-top:10px">Connect LinkedIn</button>
       <button class="btn btn-positive btn-block" id="doneButton"  style="width:150px;margin-left:auto;margin-right:auto;margin-top:10px">Done</button>
 
 
