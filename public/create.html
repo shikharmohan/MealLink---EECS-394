@@ -18,6 +18,7 @@
   <!--- linkedIn framework-->
   <script type="text/javascript" src="http://platform.linkedin.com/in.js">
   api_key: 75lsoflvpc7k4c
+  
  </script>
 
  <!--
@@ -134,7 +135,13 @@ a7a268fa-2714-4309-9df0-6e2258846eef
        
         </li>
       </ul>
-      <button class="btn btn-positive btn-block" id="connectLinkedIn"  style="background-color:#3366FF;width:150px;margin-left:auto;margin-right:auto;margin-top:10px">Connect LinkedIn</button>
+      <!--
+      <button class="btn btn-positive btn-block" id="connectLinkedIn"  style="background-color:#3366FF;width:150px;margin-left:auto;margin-right:auto;margin-top:10px" onclick="connectLinkedIn()">Connect LinkedIn</button>
+
+      -->
+      <div align = center >
+        <script type="IN/Login" data-onAuth="connectLinkedIn"></script>
+      </div>
       <button class="btn btn-positive btn-block" id="doneButton"  style="width:150px;margin-left:auto;margin-right:auto;margin-top:10px">Done</button>
     </div>
     <!--
@@ -182,13 +189,43 @@ a7a268fa-2714-4309-9df0-6e2258846eef
 
 }
 
+ picture, headline, location 
+
     -->
 
-     <script type="in/Login">
-    Hello, <?js= firstName ?> <?js= lastName ?>.
+    <!--
+    use to authorize
+    <script type="text/javascript" src="http://platform.linkedin.com/in.js">
+      api_key: your_api_key_goes_here 
+      authorize: true
     </script>
+    -->
 
     <script type="text/javascript">
+    function connectLinkedIn(){
+      IN.API.Profile("me")
+      .fields(["id", "firstName", "lastName", "pictureUrl","headline","publicProfileUrl"])
+      .result(function(result) {
+      profile = result.values[0];
+
+      /*
+      profHTML = "<p><a href=\"" + profile.publicProfileUrl + "\">";
+      profHTML += "<img class=img_border align=\"left\" src=\"" + profile.pictureUrl + "\"></a>";      
+      profHTML += "<a href=\"" + profile.publicProfileUrl + "\">";
+      profHTML += "<h2 class=myname>" + profile.firstName + " " + profile.lastName + "</a> </h2>";
+      profHTML += "<span class=myheadline>" + profile.headline + "</span>";
+      */
+
+
+      Parse.User.current().set('headline', profile.headline);
+      Parse.User.current().set('pictureURL', profile.publicProfileUrl);
+      Parse.User.current().set('location', profile.location);
+      Parse.User.current().save();
+
+
+     // $("#profile").html(profHTML);
+    });
+    }
 
     $("#doneButton").on('click', function(){
 
@@ -198,5 +235,9 @@ a7a268fa-2714-4309-9df0-6e2258846eef
     
 
     </script>
+
+    <div id="profile">
+    </div>
+</body>
   </body>
 </html>
