@@ -131,15 +131,16 @@
                    var user_facebookID;      //the user's facebook_id 
                    var user_facebookName;
                     user_facebookID= response.id;
-                    user_facebookName=response.name;
+                   user_facebookName=response.name;
 
-//****************************************************************************************************                
+                  
                   //define a parse object, in order to get data
                   var EattingTime = Parse.Object.extend("EattingTime");
                   //obtain data from cloud
                   var query = new Parse.Query(EattingTime);
-   //**********
-                  query.notequalTo("facebook_id", 1);  //edit the selection query here
+
+   //************************************edit the selection query here to select data from parse.com, the data is in the class of "EattingTime"
+                  query.equalTo("facebook_id", user_facebookID);  
                   query.find({
                     success: function(results) {
                       alert("Successfully retrieved " + results.length + " scores.");
@@ -147,7 +148,7 @@
                       for (var i = 0; i < results.length; i++) { 
                         var object = results[i];
                         
- //*************         //handle the the user's eating time here (except the ) ( geo location is included too, as lati and longti)
+ //*************         //handle the the user's eating time here, it contains the result qualifying the query abvoe, the user's geo information also contained here
 
 
                       }
@@ -156,12 +157,14 @@
                       alert("Error: " + error.code + " " + error.message);
                     }
                    });//end of query.find
-//****************************************************************************************************
-//****************************************************************************************************
+
+
                    //define a parse object, in order to get data
                    var FBFriendsMap = Parse.Object.extend("FBFriendsMap");
                    //obtain data from cloud
                    var query = new Parse.Query(FBFriendsMap);
+
+ //************************************ edit the selection query here to select frineds from parse.com, the data is in the class of "FFBFrinedsMap"                  
                    query.equalTo("user_facebookID", user_facebookID);  //edit the selection query here
                    query.find({
                      success: function(results) {
@@ -170,7 +173,7 @@
                        for (var i = 0; i < results.length; i++) { 
                          var object = results[i];
                          
-  //*************         //handle the the user's friend list (distinct )
+  //*************         //handle the  user's frineds' facebook information here, it contains the data qualifying the query above
 
 
                        }
@@ -179,12 +182,14 @@
                        alert("Error: " + error.code + " " + error.message);
                      }
                     });//end of query.find     
-//****************************************************************************************************
+
 
 
                  });
                 }
               }
+
+
             }
             window.onload = codeAddress;
     </script>
