@@ -23,12 +23,45 @@
 <!--initialize parse --> 
 <script>
   Parse.initialize("oOL3TebXo0CCT8Mm8OWN72Dq7H1LwNvaGrSUmZ8I","kYZjxpsriEyaK25EhmKw8TfrU9je7ycVcTI6DC65")
-
-  
-
-
-
 </script>
+
+
+<!-- 10.15 zexian zeng add this part to get user information -->
+  <script>
+    window.fbAsyncInit = function() {
+       Parse.FacebookUtils.init({ // this line replaces FB.init({
+         appId      : '1487754898165871', // Facebook App ID
+         status     : false, // check Facebook Login status
+         cookie     : true, // enable cookies to allow Parse to access the session
+         xfbml      : true,
+         version: "v2.1"
+       });
+       FB.getLoginStatus(function(response) {
+         if (response.status === "connected") {
+           var uid = response.authResponse.userID;
+           var accessToken = response.authResponse.accessToken;
+         }
+         else {
+           return;
+         }
+       });
+     };
+     (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "//connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  </script> 
+<!-- 10.15 end of zexian zeng 's edition ' -->
+
+<!-- 10.15 zexian zeng add this part to get user information -->
+  <script>
+    
+  </script> 
+<!-- 10.15 end of zexian zeng 's edition ' -->
+
 
     
     <!-- Makes your prototype chrome-less once bookmarked to your phone's home screen -->
@@ -64,7 +97,7 @@
     <title>My ParseApp site</title>
   </head>
   <body>
- 
+
     <!-- Make sure all your bars are the first things in your <body> -->
     <header class="bar bar-nav" >
       <h1 class="title">MealLink</h1>
@@ -86,8 +119,79 @@
         </div>
     </div>
 
+    <!-- 10/15 zexian add this to call function when paged loaded  -->
+    <script type="text/javascript">
+            function codeAddress() {
+                
+              if( Parse.User.current() ) {    //get current user 
+                if( Parse.FacebookUtils.isLinked( Parse.User.current() ) ) {    //verify the user is connected, otherwise login again
+                 //make a request to get facebook user's information
+                  FB.api("/me", function(response){         
+                  //get user information
+                   var user_facebookID;      //the user's facebook_id 
+                   var user_facebookName;
+                    user_facebookID= response.id;
+                    user_facebookName=response.name;
+
+//****************************************************************************************************                
+                  //define a parse object, in order to get data
+                  var EattingTime = Parse.Object.extend("EattingTime");
+                  //obtain data from cloud
+                  var query = new Parse.Query(EattingTime);
+   //**********
+                  query.notequalTo("facebook_id", 1);  //edit the selection query here
+                  query.find({
+                    success: function(results) {
+                      alert("Successfully retrieved " + results.length + " scores.");
+                      // Do something with the returned Parse.Object values
+                      for (var i = 0; i < results.length; i++) { 
+                        var object = results[i];
+                        
+ //*************         //handle the the user's eating time here (except the ) ( geo location is included too, as lati and longti)
+
+
+                      }
+                    },
+                    error: function(error) {
+                      alert("Error: " + error.code + " " + error.message);
+                    }
+                   });//end of query.find
+//****************************************************************************************************
+//****************************************************************************************************
+                   //define a parse object, in order to get data
+                   var FBFriendsMap = Parse.Object.extend("FBFriendsMap");
+                   //obtain data from cloud
+                   var query = new Parse.Query(FBFriendsMap);
+                   query.equalTo("user_facebookID", user_facebookID);  //edit the selection query here
+                   query.find({
+                     success: function(results) {
+                       alert("Successfully retrieved " + results.length + " scores.");
+                       // Do something with the returned Parse.Object values
+                       for (var i = 0; i < results.length; i++) { 
+                         var object = results[i];
+                         
+  //*************         //handle the the user's friend list (distinct )
+
+
+                       }
+                     },
+                     error: function(error) {
+                       alert("Error: " + error.code + " " + error.message);
+                     }
+                    });//end of query.find     
+//****************************************************************************************************
+
+
+                 });
+                }
+              }
+            }
+            window.onload = codeAddress;
+    </script>
+    <!-- 10/15 zexian add this to call function when paged loaded  -->
 
     <script>
+
       $(function() {
         $( "#tabs" ).tabs();
       });
