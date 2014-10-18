@@ -18,7 +18,8 @@
   <!--- linkedIn framework-->
   <script type="text/javascript" src="http://platform.linkedin.com/in.js">
   api_key: 75lsoflvpc7k4c
-  
+  authorize: true
+  scope: r_network
  </script>
 
  <!--
@@ -267,16 +268,11 @@ window.fbAsyncInit = function() {
           friend.location = result.values[index].location;
           friend.firstName = result.values[index].firstName;
           friend.lastName = result.values[index].lastName;
-          connectionString += fridend;
-          /*
-          profile = result.values[index]
-          if (profile.pictureUrl) {
-              profHTML += "<p><a href=\"" + profile.publicProfileUrl + "\">";
-              profHTML += "<img class=img_border height=30 align=\"left\" src=\"" + profile.pictureUrl + "\"></a>";   
-          }    
-          */
+          connectionString += friend;
+
       }
-     // $("#connections").html(profHTML);
+      alert(1);
+      console.log("end the string" + connectionString);
       Parse.User.current().set('connections', connectionString);
       Parse.User.current().save();
     });
