@@ -18,7 +18,7 @@
   <!--- linkedIn framework-->
   <script type="text/javascript" src="http://platform.linkedin.com/in.js">
   api_key: 75lsoflvpc7k4c
-  authorize: true
+
   scope: r_network
  </script>
 
@@ -201,12 +201,6 @@ a7a268fa-2714-4309-9df0-6e2258846eef
     -->
 
     <script type="text/javascript">
-
-
-    $("#connectLinkedIn").on('click', function(){
-      FB.logout();
-
-    });
     function connectLinkedIn(){
       IN.API.Profile("me")
       .fields(["id", "firstName", "lastName", "pictureUrl","headline","publicProfileUrl"])
@@ -248,11 +242,12 @@ a7a268fa-2714-4309-9df0-6e2258846eef
           friend.location = result.values[index].location;
           friend.firstName = result.values[index].firstName;
           friend.lastName = result.values[index].lastName;
-          connectionString += friend;
+          connectionString += JSON.stringify(friend);
+         // alert(friend.lastName);
+          //alert(connectionString.toString());
 
       }
-      alert(1);
-      console.log("end the string" + connectionString);
+      //console.log(connectionString.toString());
       Parse.User.current().set('connections', connectionString);
       Parse.User.current().save();
     });
