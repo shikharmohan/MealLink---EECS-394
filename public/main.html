@@ -149,110 +149,13 @@
        var end_date_minutes = Number(new_minutes_end)*60000;
        var start_date= new Date(start_date_minutes);
        var end_date = new Date(end_date_minutes);
-       //end of generation of start and end date, afterwards is writting to the cloud
-       if( Parse.User.current() ) {    //get current user 
-         if( Parse.FacebookUtils.isLinked( Parse.User.current() ) ) {    //verify the user is connected, otherwise login again
-
-         
-
-            //make a request to get facebook user's information
-          FB.api("/me", function(response){         
-             
-             //define a parse object, in order to write to cloud
-             var EattingTime = Parse.Object.extend("EattingTime");
-             //create an instance
-             var eattingTime = new EattingTime();
-              user_facebookID= response.id;
-              user_facebookName=response.name;
-              //alert(user_facebookID);
-              //specify the instance
-              eattingTime.set("name", response.name);
-              eattingTime.set("facebooklink", response.link);
-              eattingTime.set("gender", response.gender);
-              eattingTime.set("email", response.email);
-              eattingTime.set("facebook_id",response.id);
-              eattingTime.set("start_time", start_date);
-              eattingTime.set("end_time", end_date);
-              eattingTime.set("geopoint_latitude",geo_latitude);
-              eattingTime.set("geopoint_longtitude",geo_longtitude);
-              //save the instance to cloud
-              eattingTime.save(null, {
-               success: function(eattingTime) {
-                 // Execute any logic that should take place after the object is saved.
-                 //alert('New object created with objectId: ' + eattingTime.id);
-               },
-               error: function(eattingTime, error) {
-                 // Execute any logic that should take place if the save fails.
-                 // error is a Parse.Error with an error code and message.
-                 alert('Failed to create new object, with error code: ' + error.message);
-               }
-              });
-          });
-
-          //make a request to get facebook friends' information, and store in cloud
-          FB.api(
-                "/me/friends",
-                function (response) {
-                  if (response && !response.error) {
-                    
-                    for(var i=0;i<response.data.length;i++){
-                      console.log(response.data[i].name);
-                      var FBFriendsMap = Parse.Object.extend("FBFriendsMap");
-                      //create an instance
-                      var fbfriendsmap = new FBFriendsMap();
-
-                       //alert(user_facebookID);
-                       //specify the instance
-                       fbfriendsmap.set("user_facebookID", user_facebookID);
-                       fbfriendsmap.set("user_facebookName", user_facebookName);
-                       fbfriendsmap.set("friend_facebookID", response.data[i].id);
-                       fbfriendsmap.set("friend_facebookName", response.data[i].name);
-                       
-                       //save the instance to cloud
-                       fbfriendsmap.save(null, {
-                        success: function(fbfriendsmap) {
-                          // Execute any logic that should take place after the object is saved.
-                          //alert('New object created with objectId: ' + eattingTime.id);
-                        },
-                        error: function(fbfriendsmap, error) {
-                          // Execute any logic that should take place if the save fails.
-                          // error is a Parse.Error with an error code and message.
-                          alert('Failed to create new object, with error code: ' + error.message);
-                        }
-                       });
-                    }
-                    /* handle the result */
-                  }
-                }
-          );
-
-
-
-            }
+          Parse.User.current().set("start_time", start_date);
+          Parse.User.current().set("end_time", end_date);
+          Parse.User.current().set("geopoint_latitude",geo_latitude);
+          Parse.User.current().set("geopoint_longtitude",geo_longtitude);
+          Parse.User.current().save();
      }
-     //if the user did not log in through facebook, user will be required to relogin. 
-     else{
-       alert("User signed up and logged in through Facebook!");   
-       window.location.href = "./index.html"
-     }
-     //localStorage.setItem("hour", hour);
-     //localStorage.setItem("minutes", minutes);
-
-     //alert('step3');
-
-
-      
-
-
-
-      }
    </script>
-    <!-- 10.14 end of zexian zeng 's edition ' -->
-
-
-    <script>
-      
-  </script>
 
 
 

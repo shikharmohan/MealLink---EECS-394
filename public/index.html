@@ -129,8 +129,6 @@
 
 <script type="text/javascript">
   $("#login-button").on('click', function(){
-
-
         Parse.FacebookUtils.logIn(null, {
           success: function(user) {
             if (!user.existed()) {
@@ -145,20 +143,31 @@
                 Parse.User.current().set('friends', JSON.stringify(response.data));
                 Parse.User.current().save();
               });
+              FB.api('me/picture', function(response){
+                if(response && !response.error){
+                    Parse.User.current().set('profile_picture', response.data.url);
+                    Parse.User.current().save();
+                }
+              });
               window.location.href = './create.html'
-            } else {
+            } 
+            else {
               alert("User logged in through Facebook!");
               FB.api('/me', function(response){
                 Parse.User.current().set('name', response.name);
                 Parse.User.current().set('email', response.email);
+                Parse.User.current().set('fb_id', response.id);
                 Parse.User.current().save();
               });
               FB.api('/me/friends', function(response){
                 Parse.User.current().set('friends', JSON.stringify(response.data));
                 Parse.User.current().save();
-
               });
-              window.location.href = './create.html'
+              FB.api('me/picture', function(response){
+                    Parse.User.current().set('profile_picture', response.data.url);
+                    Parse.User.current().save();
+              });
+              window.location.href = './main.html'
             }
           },
           error: function(user, error) {

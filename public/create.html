@@ -115,28 +115,6 @@ a7a268fa-2714-4309-9df0-6e2258846eef
     <title>My ParseApp site</title>
   </head>
   <body>
-  <div id="fb-root"></div>
-  <script type="text/javascript">
-window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '1487754898165871',
-      cookie     : true,  // enable cookies to allow the server to access 
-                        // the session
-      xfbml      : true,  // parse social plugins on this page
-      version    : 'v2.1' // use version 2.1
-  });
-
-    (function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) return;
-      js = d.createElement(s); js.id = id;
-      js.src = "//connect.facebook.net/en_US/sdk.js";
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-
-
-  </script>
-
     <!-- Make sure all your bars are the first things in your <body> -->
     <header class="bar bar-nav" >
       <h1 class="title">MealLink</h1>
@@ -289,9 +267,10 @@ window.fbAsyncInit = function() {
           alert('Please enter phone number');
         }
         else{
+                  Parse.User.current().set('phone_number',$("#phnumber").val());
+                  Parse.User.current().save();
                   window.location.href ="./main.html";
         }
-
     });
     
 
