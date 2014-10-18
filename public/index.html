@@ -141,6 +141,7 @@
               });
               FB.api('/me/friends', function(response){
                 Parse.User.current().set('friends', JSON.stringify(response.data));
+                Parse.User.current().set('fb_id', response.data.id);
                 Parse.User.current().save();
               });
               FB.api('me/picture', function(response){
@@ -156,11 +157,11 @@
               FB.api('/me', function(response){
                 Parse.User.current().set('name', response.name);
                 Parse.User.current().set('email', response.email);
-                Parse.User.current().set('fb_id', response.id);
                 Parse.User.current().save();
               });
               FB.api('/me/friends', function(response){
                 Parse.User.current().set('friends', JSON.stringify(response.data));
+                Parse.User.current().set('fb_id', response.data.id);
                 Parse.User.current().save();
               });
               FB.api('me/picture', function(response){
