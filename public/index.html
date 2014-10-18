@@ -138,13 +138,14 @@
               FB.api('/me', function(response){
                 Parse.User.current().set('name', response.name);
                 Parse.User.current().set('email', response.email);
+                Parse.User.current().set('fb_id', response.id);
                 Parse.User.current().save();
               });
               FB.api('/me/friends', function(response){
                 Parse.User.current().set('friends', JSON.stringify(response.data));
                 Parse.User.current().save();
               });
-
+              window.location.href = './create.html'
             } else {
               alert("User logged in through Facebook!");
               FB.api('/me', function(response){
@@ -155,8 +156,9 @@
               FB.api('/me/friends', function(response){
                 Parse.User.current().set('friends', JSON.stringify(response.data));
                 Parse.User.current().save();
-              });
 
+              });
+              window.location.href = './create.html'
             }
           },
           error: function(user, error) {
@@ -165,7 +167,6 @@
             console.log(JSON.stringify(error));
           }
         });
-        window.location.href = './create.html'
 });
 </script>
 </body>

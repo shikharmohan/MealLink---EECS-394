@@ -150,7 +150,7 @@ window.fbAsyncInit = function() {
           <div class="media-body">
             <div class="input-row divHeight1" >    
                 <!-- <label for="deal-date" id="phone-number">Phone Number</label> -->
-                <input  type="text" class="inputs" placeholder="Phone Number"  align="center" >
+                <input type="text" id="phnumber" class="inputs" placeholder="Phone Number"  align="center">
             </div>       
          </div>
        
@@ -222,6 +222,8 @@ window.fbAsyncInit = function() {
     -->
 
     <script type="text/javascript">
+
+
     $("#connectLinkedIn").on('click', function(){
       FB.logout();
 
@@ -283,8 +285,12 @@ window.fbAsyncInit = function() {
 
     }
     $("#doneButton").on('click', function(){
-
-        window.location.href ="./main.html";
+        if($("#phnumber").val() == ""){
+          alert('Please enter phone number');
+        }
+        else{
+                  window.location.href ="./main.html";
+        }
 
     });
     
