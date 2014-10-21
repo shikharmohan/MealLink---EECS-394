@@ -14,10 +14,6 @@
 
   <!-- jquery ui -->
   <script src="./jquery-ui-1.9.2.js"></script>
-  <link rel="stylesheet" type="text/css" href="./jqueryUi.css">
-  <link rel="stylesheet" type="text/css" href="./jquery.ui.tabs.css">
-  <link rel="stylesheet" type="text/css" href="./jquery.ui.theme.css">
-  <link rel="stylesheet" id="skin" href="./jquery-ui-1.9.2.custom.min4.css" />
   <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
 
 <!--initialize parse --> 
@@ -97,27 +93,37 @@
     <title>My ParseApp site</title>
   </head>
   <body>
-
-    <!-- Make sure all your bars are the first things in your <body> -->
-    <header class="bar bar-nav" >
-      <h1 class="title">MealLink</h1>
-    </header>
-
-    <!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
-    <div class="content" style="margin-top:30px;">     
-        <div id="tabs">
-          <ul> 
-            <li><a href="#tabs-1">Facebook</a></li>
-            <li><a href="#tabs-2">LinkedIn</a></li>
-            <li><a href="#tabs-3">Nearby</a></li>
-          </ul>
-          <br>
-          <br>
-          <div id="tabs-1">
-            <button type="button" id="SMStestbutton">Test SMS</button>
-          </div>
-        </div>
+    
+    <div class="segmented-control">
+      <a href="#facebook_result" class="control-item active">Facebook</a>
+      <a href="#linkedin_result" class="control-item">LinkedIn</a>
+      <a href="#nearby_result" class="control-item">Nearby</a>
     </div>
+
+    <div class="card">
+      <ul id="facebook_result" class="control-content active table-view">
+        <li class="table-view-cell">Fb <button class="btn">Button</button></li>
+        <li class="table-view-cell">Item 2 <button class="btn btn-primary">Button</button></li>
+        <li class="table-view-cell">Item 3 <button class="btn btn-primary">Button</button></li>
+        <li class="table-view-cell">Item 4 <button class="btn btn-primary">Button</button></li>
+      </ul>
+
+      <ul id="linkedin_result" class="control-content table-view">
+        <li class="table-view-cell">Linkedin <button class="btn">Button</button></li>
+        <li class="table-view-cell">Item 2 <button class="btn btn-primary">Button</button></li>
+        <li class="table-view-cell">Item 3 <button class="btn btn-positive">Button</button></li>
+        <li class="table-view-cell">Item 4 <button class="btn btn-negative">Button</button></li>
+      </ul>
+
+      <ul id="nearby_result" class="control-content table-view">
+        <li class="table-view-cell">Nearby <button class="btn">Button</button></li>
+        <li class="table-view-cell">Item 2 <button class="btn btn-primary">Button</button></li>
+        <li class="table-view-cell">Item 3 <button class="btn btn-positive">Button</button></li>
+        <li class="table-view-cell">Item 4 <button class="btn btn-negative">Button</button></li>
+      </ul>
+  </div>
+
+  
 
     <!-- 10/15 zexian add this to call function when paged loaded  -->
     <script type="text/javascript">
