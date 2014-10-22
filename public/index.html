@@ -79,7 +79,7 @@
     window.fbAsyncInit = function() {
       Parse.FacebookUtils.init({ // this line replaces FB.init({
         appId      : '1487754898165871', // Facebook App ID
-        status     : false, // check Facebook Login status
+        //status     : false, // check Facebook Login status
         cookie     : true, // enable cookies to allow Parse to access the session
         xfbml      : true,
         version: "v2.1"
@@ -89,10 +89,11 @@
     if (response.status === "connected") {
       var uid = response.authResponse.userID;
       var accessToken = response.authResponse.accessToken;
-      window.location.href = './main.html'
+      window.location.href = './form.html'
     }
     else {
-      return;
+      //return;    //   10/21 zexian comment this  
+      FB.login(); //   10/21 zexian add this  
     }
   });
 
@@ -155,6 +156,7 @@
             else {
               alert("User logged in through Facebook!");
               FB.api('/me', function(response){
+                alert('user'+response.name);
                 Parse.User.current().set('name', response.name);
                 Parse.User.current().set('email', response.email);
                 Parse.User.current().save();
