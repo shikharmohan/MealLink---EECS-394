@@ -147,12 +147,11 @@
                   query.first({
                     success: function(results) {
                       
-                      // The arrays of friends are Strings 
+                      // The arrays of friends are Strings. 
                       var userName = results._serverData.name;
                       alert("friends: "+ results._serverData.friends);
                       var casaaa = "#fbCell" + 3 ; 
                       $(casaaa).html(userName);
-
 
                       //obtain user's location
                       curr_geopoint_latitude = results._serverData.geopoint_latitude;
@@ -193,7 +192,7 @@
                       alert("Error: " + error.code + " " + error.message);
                     }
                    });//end of query.find
-                  function CalcDistanceBetween(lat1, lon1, lat2, lon2) {
+                   function CalcDistanceBetween(lat1, lon1, lat2, lon2) {
                       //Radius of the earth in:  1.609344 miles,  6371 km  | var R = (6371 / 1.609344);
                       var R = 3958.7558657440545; // Radius of earth in Miles 
                       var dLat = toRad(lat2-lat1);
@@ -204,16 +203,16 @@
                       var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
                       var d = R * c;
                       return d;
-                  }
-                  function toRad(Value) {
+                    }
+                   function toRad(Value) {
                       /** Converts numeric degrees to radians */
                       return Value * Math.PI / 180;
-                  };
+                    };
 
 
 
 
-                   //define a parse object, in order to get data
+                   //define a parse object, in order to get user frinedlist data 
                    var FBFriendsMap = Parse.Object.extend("FBFriendsMap");
                    //obtain data from cloud
                    var query = new Parse.Query(FBFriendsMap);
