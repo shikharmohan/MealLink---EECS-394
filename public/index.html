@@ -76,6 +76,8 @@
   <!-- get facebook element --> 
 
  <script>
+    var newUser = false; 
+    var loginError = false; 
     window.fbAsyncInit = function() {
       Parse.FacebookUtils.init({ // this line replaces FB.init({
         appId      : '1487754898165871', // Facebook App ID
@@ -85,6 +87,7 @@
         version: "v2.1"
     });
 
+<<<<<<< HEAD
   FB.getLoginStatus(function(response) {
     if (response.status === "connected") {
       var uid = response.authResponse.userID;
@@ -97,9 +100,21 @@
     }
   });
 
+=======
+    FB.getLoginStatus(function(response) {
+      if (response.status === "connected") {
+        var uid = response.authResponse.userID;
+        var accessToken = response.authResponse.accessToken;
+        window.location.href = './form.html';
+      }
+      else {
+        return;
+      }
+    }, true);
+>>>>>>> FETCH_HEAD
 
     };
-  
+
   (function(d, s, id){
     var js, fjs = d.getElementsByTagName(s)[0];
     if (d.getElementById(id)) {return;}
@@ -114,19 +129,14 @@
     <title>My ParseApp site</title>
   </head>
   <body>
- 
     <!-- Make sure all your bars are the first things in your <body> -->
     <header class="bar bar-nav" >
       <h1 class="title">MealLink</h1>
     </header>
-    
     <div id="overlay" >
-  
-    <button class="btn btn-positive btn-block" id="login-button"  style="width:180px;margin-top:200px;margin-left:auto;margin-right:auto">Connect Facebook</button>
     </div>
+    <button class="btn btn-positive btn-block" id="login-button"  style="width:180px;margin-top:200px;margin-left:auto;margin-right:auto">Connect Facebook</button>
 
-
-</div>
 
 <script type="text/javascript">
   $("#login-button").on('click', function(){
@@ -134,6 +144,8 @@
           success: function(user) {
             if (!user.existed()) {
               alert("User signed up and logged in through Facebook!");
+              newUser = true; 
+              console.log("newUser" + newUser);
               FB.api('/me', function(response){
                 Parse.User.current().set('name', response.name);
                 Parse.User.current().set('email', response.email);
@@ -151,10 +163,12 @@
                     Parse.User.current().save();
                 }
               });
-              window.location.href = './create.html'
+              window.location.href = './addnumber.html';
             } 
             else {
               alert("User logged in through Facebook!");
+              newUser = false; 
+              console.log("new user?" + newUser);
               FB.api('/me', function(response){
                 alert('user'+response.name);
                 Parse.User.current().set('name', response.name);
@@ -170,13 +184,14 @@
                     Parse.User.current().set('profile_picture', response.data.url);
                     Parse.User.current().save();
               });
-              window.location.href = './main.html'
+              window.location.href = './form.html';
             }
           },
           error: function(user, error) {
             alert("User cancelled the Facebook login or did not fully authorize.");
             console.log(JSON.stringify(user));
             console.log(JSON.stringify(error));
+            loginError = true; 
           }
         });
 });
