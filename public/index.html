@@ -92,7 +92,9 @@
     if (response.status === "connected") {
       var uid = response.authResponse.userID;
       var accessToken = response.authResponse.accessToken;
-      window.location.href = './form.html'
+      FB.Event.subscribe('auth.login', function () {
+             window.location.href = "./form.html";
+        });
     }
     else {
       //return;    //   10/21 zexian comment this  
@@ -101,16 +103,16 @@
   });
 
 
-    FB.getLoginStatus(function(response) {
-      if (response.status === "connected") {
-        var uid = response.authResponse.userID;
-        var accessToken = response.authResponse.accessToken;
-        window.location.href = './form.html';
-      }
-      else {
-        return;
-      }
-    }, true);
+    // FB.getLoginStatus(function(response) {
+    //   if (response.status === "connected") {
+    //     var uid = response.authResponse.userID;
+    //     var accessToken = response.authResponse.accessToken;
+    //     window.location.href = './form.html';
+    //   }
+    //   else {
+    //     return;
+    //   }
+    // }, true);
 
 
     };
@@ -143,7 +145,7 @@
         Parse.FacebookUtils.logIn(null, {
           success: function(user) {
             if (!user.existed()) {
-              alert("User signed up and logged in through Facebook!");
+              alert("New User signed up and logged in through Facebook!");
               newUser = true; 
               console.log("newUser" + newUser);
               FB.api('/me', function(response){
@@ -154,16 +156,15 @@
               });
               FB.api('/me/friends', function(response){
                 Parse.User.current().set('friends', JSON.stringify(response.data));
-                Parse.User.current().set('fb_id', response.data.id);
                 Parse.User.current().save();
+                window.location.href = './addnumber.html';
               });
               FB.api('me/picture', function(response){
                 if(response && !response.error){
                     Parse.User.current().set('profile_picture', response.data.url);
                     Parse.User.current().save();
                 }
-              });
-              window.location.href = './addnumber.html';
+              }); 
             } 
             else {
               alert("User logged in through Facebook!");
@@ -173,27 +174,28 @@
                 alert('user'+response.name);
                 Parse.User.current().set('name', response.name);
                 Parse.User.current().set('email', response.email);
+                Parse.User.current().set('fb_id', response.id);
                 Parse.User.current().save();
               });
               FB.api('/me/friends', function(response){
                 Parse.User.current().set('friends', JSON.stringify(response.data));
-                Parse.User.current().set('fb_id', response.data.id);
                 Parse.User.current().save();
+                
               });
               FB.api('me/picture', function(response){
                     Parse.User.current().set('profile_picture', response.data.url);
                     Parse.User.current().save();
               });
-              window.location.href = './form.html';
             }
           },
           error: function(user, error) {
-            alert("User cancelled the Facebook login or did not fully authorize.");
             console.log(JSON.stringify(user));
             console.log(JSON.stringify(error));
             loginError = true; 
           }
         });
+window.location.href = './form.html';
+        
 });
 </script>
 </body>
