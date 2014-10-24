@@ -75,6 +75,10 @@
     .availability{
       font-style:italic;
     }
+
+    .distance {
+      
+    }
     </style>
 
 
@@ -92,7 +96,12 @@
       <li class="table-view-cell" id = "fbCell1"><img src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpf1/v/t1.0-1/c195.55.548.548/s50x50/988686_10151585715386130_1175639374_n.jpg?oh=0ad7492d5c08fd97b343d36de3666062&oe=54AA97E2&__gda__=1424741424_90547460036388f6f7559e80cdffc03a">
         <div class="person-name">Person0</div> 
         <div class="availability">Available: 12:30PM</div>
+<<<<<<< Updated upstream
         <button class="smsbutton btn btn-primary">Button
+=======
+        <div class='distance'>0.5 miles</div>
+        <button class="smsbutton btn btn-primary">Say Hi!
+>>>>>>> Stashed changes
         </button>
       </li>
     </ul>
@@ -113,6 +122,7 @@
       <li class="table-view-cell">Item 3 <button class="btn btn-positive">Button</button></li>
       <li class="table-view-cell">Item 4 <button class="btn btn-negative">Button</button></li>
     </ul>
+<<<<<<< Updated upstream
   </span>
 
   <script>
@@ -158,14 +168,14 @@
   
 
     <!-- 10/15 zexian add this to call function when paged loaded  -->
+=======
+  </div>
+>>>>>>> Stashed changes
     <script type="text/javascript">
-      function codeAddress() {
-        var currentUser = Parse.User.current();
-        alert("" + currentUser.get('name'));  
-
-        var friends_list = currentUser.get('friends');
-        alert(friends_list);
-
+      //function for loading all rows under Facebook tab
+      function loadFacebookFriends() {
+        var currentUser = Parse.User.current(); 
+        var friends_list = currentUser.get('friends');  
         var friend_obj = JSON.parse(friends_list);
         
         var ids = [];
@@ -176,7 +186,7 @@
         var friend_numbers = [];
         var friend_starttime = [];
         var friend_distance = [];
-        //var friend_duration = [];
+        var friend_pictures = [];
         var query = new Parse.Query("User");
         query.containedIn('fb_id', ids);
         query.find({
@@ -188,23 +198,95 @@
               friend_numbers.push(currFriend.get('phone_number'));
               friend_starttime.push(currFriend.get('start_time'));
               friend_distance.push(currFriend.get('distance'));
+              friend_pictures.push(currFriend.get('profile_picture'));
 
             }
-            buildRows(friend_names, friend_numbers, friend_starttime, friend_distance);
+            buildFacebookRows(friend_names, friend_numbers, friend_starttime, friend_distance, friend_pictures);
           },
           error: function(error){
             alert(JSON.stringify(error));
           }
         });
       }
-      function buildRows(names, numbers, start, distance) {
+      function buildFacebookRows(names, numbers, start, distance, pictures) {
         for(var i = 0; i < names.length; i++)
         {
+          var hour = start[i].getHours();
+          var minute = start[i].getMinutes();
+          var AMPM = "AM";
+          if(hour >= 12)
+          {
+            AMPM = "PM";
+            hour = hour -12; 
+          }
           //append all the users here
-          //$('')
+          $('#facebook_result').append("<li class='table-view-cell' id = 'fbCell1'><img src='" + pictures[i] + "'>" + 
+        "<div class='person-name'>" + names[i] + "</div>" +
+        "<div class='availability'>Available: " + hour + ":" + minute + AMPM + "</div>" + 
+        "<div class='distance'>" + distance[i] +" miles </div>" + 
+        "<button class='smsbutton btn btn-primary'>Say Hi!" + 
+        "</button></li>")
         }
       }
-      window.onload = codeAddress;
+
+//======================================================================================================================================
+
+      //function for loading all rows under Nearby 
+      function loadNearbyFriends() {
+        var currentUser = Parse.User.current();
+        var nearby_names = [];
+        var nearby_numbers = [];
+        var nearby_starttime = [];
+        var nearby_distance = [];
+        var nearby_pictures = [];
+        var query = new Parse.Query("User");
+        //restrict to all users less than 5 miles away
+        query.lessThanOrEqualTo("distance", 5.0);
+        query.ascending('distance');
+        query.find({
+          success: function(results){
+            for (var k = 0; k < results.length; k++)
+            {
+              var currStranger = results[k];
+              nearby_names.push(currStranger.get('name'));
+              nearby_numbers.push(currStranger.get('phone_number'));
+              nearby_starttime.push(currStranger.get('start_time'));
+              nearby_distance.push(currStranger.get('distance'));
+              nearby_pictures.push(currStranger.get('profile_picture'));
+
+            }
+            buildNearbyRows(nearby_names, nearby_numbers, nearby_starttime, nearby_distance, nearby_pictures);
+          },
+          error: function(error){
+            alert(JSON.stringify(error));
+          }
+        });
+      }
+
+      function buildNearbyRows(names, numbers, start, distance, pictures) {
+        for(var i = 0; i < names.length; i++)
+        {
+          var hour = start[i].getHours();
+          var minute = start[i].getMinutes();
+          var AMPM = "AM";
+          if(hour >= 12)
+          {
+            AMPM = "PM";
+            hour = hour -12; 
+          }
+          //append all the users here
+          $('#nearby_result').append("<li class='table-view-cell' id = 'fbCell1'><img src='" + pictures[i] + "'>" + 
+        "<div class='person-name'>" + names[i] + "</div>" +
+        "<div class='availability'>Available: " + hour + ":" + minute + AMPM + "</div>" + 
+        "<div class='distance'>" + distance[i] +" miles </div>" + 
+        "<button class='smsbutton btn btn-primary'>Say Hi!" + 
+        "</button></li>")
+        }
+      }
+      loadFacebookFriends();
+      loadNearbyFriends();
+
+
     </script>
     <!-- 10/15 zexian add this to call function when paged loaded  -->
 
@@ -233,21 +315,27 @@
         }
       });
 
-
-      $('#SMStestbutton').click(function(){
-        console.log("button works");
-        var msg = "Hi " + selected_name + "! I'm available at " + user_hour + ":" + user_minute + ". Message me back at " + user_number + "!" 
-        var sendtonumber = "+1" + selected_number
-        Parse.Cloud.run('sendSMS', { smsmessage: msg, number: sendtonumber}, {
-          success: function(result) {
-            // result is 'Hello world!'
-            console.log("" + JSON.stringify(result));
-          },
-          error: function(error) {
-            console.log("" + JSON.stringify(error));
-          }
-        });
+      $('.smsbutton').on("click", function(){
+        alert("button works");
+        var parentTag = $(this).parent();
+        alert("" + JSON.stringify(parentTag));
       });
+
+
+      // $('#SMStestbutton').click(function(){
+      //   console.log("button works");
+      //   var msg = "Hi " + selected_name + "! I'm available at " + user_hour + ":" + user_minute + ". Message me back at " + user_number + "!" 
+      //   var sendtonumber = "+1" + selected_number
+      //   Parse.Cloud.run('sendSMS', { smsmessage: msg, number: sendtonumber}, {
+      //     success: function(result) {
+      //       // result is 'Hello world!'
+      //       console.log("" + JSON.stringify(result));
+      //     },
+      //     error: function(error) {
+      //       console.log("" + JSON.stringify(error));
+      //     }
+      //   });
+      // });
 
     </script>
    
