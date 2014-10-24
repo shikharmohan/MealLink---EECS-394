@@ -13,7 +13,7 @@
   
 
   <!-- jquery ui -->
-  <script src="./jquery-ui-1.9.2.js"></script>
+  <!-- <script src="./jquery-ui-1.9.2.js"></script> -->
   <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
 
 <!--initialize parse --> 
@@ -24,33 +24,10 @@
 
 <!-- 10.15 zexian zeng add this part to get user information -->
   <script>
-    window.fbAsyncInit = function() {
-       Parse.FacebookUtils.init({ // this line replaces FB.init({
-         appId      : '1487754898165871', // Facebook App ID
-         //status     : false, // check Facebook Login status
-         cookie     : true, // enable cookies to allow Parse to access the session
-         xfbml      : true,
-         version: "v2.1"
-       });
-       FB.getLoginStatus(function(response) {
-         if (response.status === "connected") {
-           var uid = response.authResponse.userID;
-           
-          
-           var accessToken = response.authResponse.accessToken;
-         }
-         else {
-           return;
-         }
-       });
-     };
-     (function(d, s, id){
-       var js, fjs = d.getElementsByTagName(s)[0];
-       if (d.getElementById(id)) {return;}
-       js = d.createElement(s); js.id = id;
-       js.src = "//connect.facebook.net/en_US/sdk.js";
-       fjs.parentNode.insertBefore(js, fjs);
-     }(document, 'script', 'facebook-jssdk'));
+  if(Parse.User.current() == null)
+  {
+    window.location.href = "./index.html";
+  }
   </script> 
 <!-- 10.15 end of zexian zeng 's edition ' -->
 
@@ -105,10 +82,9 @@
     <div class="card">
 
     <ul id="facebook_result" class="control-content active table-view">
-      <li class="table-view-cell" id = "fbCell1">Fb <button class="btn">Button</button></li>
-      <li class="table-view-cell" id = "fbCell2">Item 2222 <button class="btn btn-primary">Button</button></li>
-      <li class="table-view-cell" id = "fbCell3">Item 3 <button class="btn btn-positive">Button</button></li>
-      <li class="table-view-cell" id = "fbCell4">Item 4 <button class="btn btn-negative">Button</button></li>
+      <li class="table-view-cell" id = "fbCell1"><img src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpf1/v/t1.0-1/c195.55.548.548/s50x50/988686_10151585715386130_1175639374_n.jpg?oh=0ad7492d5c08fd97b343d36de3666062&oe=54AA97E2&__gda__=1424741424_90547460036388f6f7559e80cdffc03a">Person0 <button class="btn btn-primary">Button</button></li>
+      <li class="table-view-cell" id = "fbCell2">Person1 <button class="btn btn-primary">Button</button></li>
+      <li class="table-view-cell" id = "fbCell4">Person2 <button class="btn btn-negative">Button</button></li>
     </ul>
 
     <ul id="linkedin_result" class="control-content table-view">
@@ -124,126 +100,66 @@
       <li class="table-view-cell">Item 3 <button class="btn btn-positive">Button</button></li>
       <li class="table-view-cell">Item 4 <button class="btn btn-negative">Button</button></li>
     </ul>
->>>>>>> Stashed changes
   </div>
 
   
 
     <!-- 10/15 zexian add this to call function when paged loaded  -->
     <script type="text/javascript">
-            function codeAddress() {
-                
-              if( Parse.User.current() ) {    //get current user 
-                if( Parse.FacebookUtils.isLinked( Parse.User.current() ) ) {    //verify the user is connected, otherwise login again
-                  
-                  //define a parse object, in order to get data
-                  var User = Parse.Object.extend("User");
-                  //obtain data from cloud
-                  var query = new Parse.Query(User);
-                  var userID = Parse.User.current().id
-                  query.equalTo("objectId", userID);  
-                  var curr_geopoint_latitude =0;
-                  var curr_geopoint_latitude =0;
-                  query.first({
-                    success: function(results) {
-                      
-                      // The arrays of friends are Strings. 
-                      var userName = results._serverData.name;
-                      alert("friends: "+ results._serverData.friends);
-                      var casaaa = "#fbCell" + 3 ; 
-                      $(casaaa).html(userName);
+      function codeAddress() {
+        var currentUser = Parse.User.current();
+        alert("" + currentUser.get('name'));  
 
-                      //obtain user's location
-                      curr_geopoint_latitude = results._serverData.geopoint_latitude;
-                      curr_geopoint_longtitude = results._serverData.geopoint_longtitude;
+        var friends_list = currentUser.get('friends');
+        alert(friends_list);
 
-                      console.log("the user's current position is: "+curr_geopoint_latitude+", "+curr_geopoint_longtitude);
-                      
-                      
-                    },
-                    error: function(error) {
-                      alert("Error: " + error.code + " " + error.message);
-                    }
-                   });//end of query.find
+        var friend_obj = JSON.parse(friends_list);
+        
+        var ids = [];
+        for (var i = 0; i < friend_obj.length; i++){
+          ids.push(friend_obj[i].id);
+        }
+        var friend_names = [];
+        var friend_numbers = [];
+        var friend_starttime = [];
+        var friend_distance = [];
+        //var friend_duration = [];
+        var query = new Parse.Query("User");
+        query.containedIn('fb_id', ids);
+        query.find({
+          success: function(results){
+            for (var k = 0; k < results.length; k++)
+            {
+              var currFriend = results[k];
+              friend_names.push(currFriend.get('name'));
+              friend_numbers.push(currFriend.get('phone_number'));
+              friend_starttime.push(currFriend.get('start_time'));
+              friend_distance.push(currFriend.get('distance'));
 
-
-                  //since the list of friends list is a list of strings, I do not how to parse them out, so instead of getting friends' information, I will calculate all users' distance away from the current user
-
-                  var Users = Parse.Object.extend("User");
-                  var query = new Parse.Query(Users);
-                  query.find({
-                    success: function(results) {
-                      //go through friends' lists to get the location is possible
-                      for(var i=0; i<results.length;i++){
-                        if(results[i]._serverData.geopoint_latitude){
-                          //console.log("the user's latitude is : "+results[i]._serverData.geopoint_latitude);
-                          //console.log("the user's long is : "+results[i]._serverData.geopoint_longtitude);
-                          var temp_geopoint_latitude = results[i]._serverData.geopoint_latitude;
-                          var temp_geopoint_longtitude = results[i]._serverData.geopoint_longtitude;
-
-                          var distance = CalcDistanceBetween(curr_geopoint_latitude,curr_geopoint_longtitude,temp_geopoint_latitude,temp_geopoint_longtitude);
-                          if(distance >0){
-                            console.log("The distance is between you and "+results[i]._serverData.name + " is: "+ distance +" miles");
-                            }
-                        }
-                      }  
-                    },
-                    error: function(error) {
-                      alert("Error: " + error.code + " " + error.message);
-                    }
-                   });//end of query.find
-                   function CalcDistanceBetween(lat1, lon1, lat2, lon2) {
-                      //Radius of the earth in:  1.609344 miles,  6371 km  | var R = (6371 / 1.609344);
-                      var R = 3958.7558657440545; // Radius of earth in Miles 
-                      var dLat = toRad(lat2-lat1);
-                      var dLon = toRad(lon2-lon1); 
-                      var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-                              Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * 
-                              Math.sin(dLon/2) * Math.sin(dLon/2); 
-                      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
-                      var d = R * c;
-                      return d;
-                    }
-                   function toRad(Value) {
-                      /** Converts numeric degrees to radians */
-                      return Value * Math.PI / 180;
-                    };
-
-
-
-
-                   //define a parse object, in order to get user frinedlist data 
-                   var FBFriendsMap = Parse.Object.extend("FBFriendsMap");
-                   //obtain data from cloud
-                   var query = new Parse.Query(FBFriendsMap);
-                   var user_facebookID=10152847727812223;
- //************************************ edit the selection query here to select frineds from parse.com, the data is in the class of "FFBFrinedsMap"                  
-                   query.equalTo("user_facebookID", user_facebookID);  //edit the selection query here
-                   query.find({
-                     success: function(results) {
-                       //alert("Successfully retrieved " + results.length + " scores.");
-                       // Do something with the returned Parse.Object values
-                       for (var i = 0; i < results.length; i++) { 
-                         var object = results[i];  
-  //*************         //handle the  user's frineds' facebook information here, it contains the data qualifying the query above
-                       }
-                     },
-                     error: function(error) {
-                       alert("Error: " + error.code + " " + error.message);
-                     }
-                    });//end of query.find     
-                }
-              }
             }
-            window.onload = codeAddress;
+            buildRows(friend_names, friend_numbers, friend_starttime, friend_distance);
+          },
+          error: function(error){
+            alert(JSON.stringify(error));
+          }
+        });
+      }
+      function buildRows(names, numbers, start, distance) {
+        for(var i = 0; i < names.length; i++)
+        {
+          //append all the users here
+          //$('')
+        }
+      }
+      window.onload = codeAddress;
     </script>
     <!-- 10/15 zexian add this to call function when paged loaded  -->
 
     <script>
 
-      $(function() {
-        $( "#tabs" ).tabs();
-      });
+      // $(function() {
+      //   $( "#tabs" ).tabs();
+      // });
 
       $('#SMStestbutton').click(function(){
         console.log("button works");
