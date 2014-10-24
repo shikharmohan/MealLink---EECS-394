@@ -209,15 +209,35 @@
     <!-- 10/15 zexian add this to call function when paged loaded  -->
 
     <script>
+      var currentUser = Parse.User.current();
+      var user_time = currentUser.get('start_time');
+      var user_hour = user_time.getHours();
+      var user_minute = user_time.getMinutes();
+      var user_number = currentUser.get('phone_number');
+      //function for determining which row cell goes here
 
-      // $(function() {
-      //   $( "#tabs" ).tabs();
-      // });
+      //get the selected user and fields
+      var selected_name;
+      var selected_number;
+
+
+      var query = new Parse.Query("User");
+      query.equalTo('name', selected_name);
+      query.first({
+        success: function(object){
+          selected_name = object.get('name');
+          selected_number = object.get('phone_number');
+        },
+        error: function(error){
+          alert(JSON.stringify(error));
+        }
+      });
+
 
       $('#SMStestbutton').click(function(){
         console.log("button works");
-        var msg = "Hi " + "insert_name" + "! Let's meet for lunch at " + "insert_time" + ". Message me back at " + "insert_sender_phone_number" + "!" 
-        var sendtonumber = "+1" + "9095699970"
+        var msg = "Hi " + selected_name + "! I'm available at " + user_hour + ":" + user_minute + ". Message me back at " + user_number + "!" 
+        var sendtonumber = "+1" + selected_number
         Parse.Cloud.run('sendSMS', { smsmessage: msg, number: sendtonumber}, {
           success: function(result) {
             // result is 'Hello world!'
