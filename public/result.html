@@ -102,12 +102,9 @@
       </li>
     </ul>
     </span>
+
     <span id="linkedin_result" class="control-content">
     <ul class="table-view">
-      <li class="table-view-cell">Linkedin <button class="btn">Button</button></li>
-      <li class="table-view-cell">Item 22 <button class="btn btn-primary">Button</button></li>
-      <li class="table-view-cell">Item 33 <button class="btn btn-positive">Button</button></li>
-      <li class="table-view-cell">Item 44 <button class="btn btn-negative">Button</button></li>
     </ul>
     </span>
 
@@ -163,6 +160,15 @@
     <script type="text/javascript">
       //function for loading all rows under Facebook tab
       function loadFacebookFriends() {
+        Parse.User.current().fetch({
+          success:function(myobj){
+            Parse.User.current() = myobj;
+          },
+          error:function(error){
+            alert(error);
+          }
+        });
+        
         var currentUser = Parse.User.current(); 
         var friends_list = currentUser.get('friends');  
         var friend_obj = JSON.parse(friends_list);
@@ -217,8 +223,75 @@
         "</button></ul>")
         }
       }
+//================================LOAD LINKEDIN CONNECTIONS=================================================================================================
 
-//======================================================================================================================================
+      function loadLinkedinConnections() {
+        Parse.User.current().fetch({
+          success:function(myobj){
+            Parse.User.current() = myobj;
+          },
+          error:function(error){
+            alert(error);
+          }
+        });
+
+        var currentUser = Parse.User.current(); 
+        var connections_list = currentUser.get('connections');  
+        var connection_obj = JSON.parse(connections_list);
+        
+        var ids = [];
+        for (var i = 0; i < connection_obj.length; i++){
+          ids.push(connection_obj[i].id);
+        }
+        var connection_names = [];
+        var connection_numbers = [];
+        var connection_starttime = [];
+        var connection_distance = [];
+        var connection_pictures = [];
+        var query = new Parse.Query("User");
+        query.containedIn('fb_id', ids);
+        query.find({
+          success: function(results){
+            for (var k = 0; k < results.length; k++)
+            {
+              var currConnection = results[k];
+              connection_names.push(currConnection.get('name'));
+              connection_numbers.push(currConnection.get('phone_number'));
+              connection_starttime.push(currConnection.get('start_time'));
+              connection_distance.push(currConnection.get('distance'));
+              connection_pictures.push(currConnection.get('profile_picture'));
+
+            }
+            buildLinkedinRows(connection_names, connection_numbers, connection_starttime, connection_distance, connection_pictures);
+          },
+          error: function(error){
+            alert(JSON.stringify(error));
+          }
+        });
+      }
+      function buildLinkedinRows(names, numbers, start, distance, pictures) {
+        for(var i = 0; i < names.length; i++)
+        {
+          var hour = start[i].getHours();
+          var minute = start[i].getMinutes();
+          var AMPM = "AM";
+          if(hour >= 12)
+          {
+            AMPM = "PM";
+            hour = hour -12; 
+          }
+          //append all the users here
+          $('#linkedin_result').append("<ul class='table-view-cell' id = 'fbCell1'><img src='" + pictures[i] + "'>" + 
+        "<div class='person-name'>" + names[i] + "</div>" +
+        "<div class='availability'>Available: " + hour + ":" + minute + AMPM + "</div>" + 
+        "<div class='distance'>" + distance[i] +" miles </div>" + 
+        "<button class='smsbutton btn btn-primary'>Say Hi!" + 
+        "</button></ul>")
+        }
+      }
+
+
+//================================LOAD NEARBY TAB AND ROWS==================================================================================================
 
       //function for loading all rows under Nearby 
       function loadNearbyFriends() {
@@ -278,6 +351,7 @@
         }
       }
       loadFacebookFriends();
+      loadLinkedinConnections();
       loadNearbyFriends();
 
 
