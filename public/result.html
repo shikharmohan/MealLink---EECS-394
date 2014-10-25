@@ -209,12 +209,12 @@
             hour = hour -12; 
           }
           //append all the users here
-          $('#facebook_result').append("<li class='table-view-cell' id = 'fbCell1'><img src='" + pictures[i] + "'>" + 
+          $('#facebook_result').append("<ul class='table-view-cell' id = 'fbCell1'><img src='" + pictures[i] + "'>" + 
         "<div class='person-name'>" + names[i] + "</div>" +
         "<div class='availability'>Available: " + hour + ":" + minute + AMPM + "</div>" + 
         "<div class='distance'>" + distance[i] +" miles </div>" + 
         "<button class='smsbutton btn btn-primary'>Say Hi!" + 
-        "</button></li>")
+        "</button></ul>")
         }
       }
 
@@ -231,6 +231,7 @@
         var query = new Parse.Query("User");
         //restrict to all users less than 5 miles away
         query.lessThanOrEqualTo("distance", 5.0);
+        query.notEqualTo("name",currentUser.get('name'));
         query.ascending('distance');
         query.find({
           success: function(results){
@@ -261,15 +262,19 @@
           if(hour >= 12)
           {
             AMPM = "PM";
-            hour = hour -12; 
+            if (hour!=12)
+            {
+              hour = hour -12; 
+            }
+            
           }
           //append all the users here
-          $('#nearby_result').append("<li class='table-view-cell' id = 'fbCell1'><img src='" + pictures[i] + "'>" + 
+          $('#nearby_result').append("<ul class='table-view-cell' id = 'fbCell1'><img src='" + pictures[i] + "'>" + 
         "<div class='person-name'>" + names[i] + "</div>" +
         "<div class='availability'>Available: " + hour + ":" + minute + AMPM + "</div>" + 
         "<div class='distance'>" + distance[i] +" miles </div>" + 
         "<button class='smsbutton btn btn-primary'>Say Hi!" + 
-        "</button></li>")
+        "</button></ul>")
         }
       }
       loadFacebookFriends();
