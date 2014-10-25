@@ -273,8 +273,8 @@
         "<div class='person-name'>" + names[i] + "</div>" +
         "<div class='availability'>Available: " + hour + ":" + minute + AMPM + "</div>" + 
         "<div class='distance'>" + distance[i] +" miles </div>" + 
-        "<button class='smsbutton btn btn-primary'>Say Hi!" + 
-        "</button></ul>")
+        "<button id='" + names[i] +  "-" + numbers[i] + "' class='smsbutton btn btn-primary'>Say Hi!" + 
+        "</button></ul>");
         }
       }
       loadFacebookFriends();
@@ -285,12 +285,7 @@
     <!-- 10/15 zexian add this to call function when paged loaded  -->
 
     <script>
-      var currentUser = Parse.User.current();
-      var user_time = currentUser.get('start_time');
-      var user_hour = user_time.getHours();
-      var user_minute = user_time.getMinutes();
-      var user_number = currentUser.get('phone_number');
-      //function for determining which row cell goes here
+
 
       //get the selected user and fields
       var selected_name;
@@ -309,27 +304,33 @@
         }
       });
 
-      $('.smsbutton').on("click", function(){
-        alert("button works");
-        var parentTag = $(this).parent();
-        alert("" + JSON.stringify(parentTag));
-      });
+      $( document ).on( "click", ".smsbutton", function() {
+        id = $(this).attr('id');
+        arr = id.split("-");
+        selected_name = arr[0];
+        selected_number = arr[1];
+        console.log("button works");
 
+        var currentUser = Parse.User.current();
+        var user_time = currentUser.get('start_time');
+        var user_hour = user_time.getHours();
+        var user_minute = user_time.getMinutes();
+        var user_number = currentUser.get('phone_number');
 
-      // $('#SMStestbutton').click(function(){
-      //   console.log("button works");
-      //   var msg = "Hi " + selected_name + "! I'm available at " + user_hour + ":" + user_minute + ". Message me back at " + user_number + "!" 
-      //   var sendtonumber = "+1" + selected_number
-      //   Parse.Cloud.run('sendSMS', { smsmessage: msg, number: sendtonumber}, {
-      //     success: function(result) {
-      //       // result is 'Hello world!'
-      //       console.log("" + JSON.stringify(result));
-      //     },
-      //     error: function(error) {
-      //       console.log("" + JSON.stringify(error));
-      //     }
-      //   });
-      // });
+        var msg = "Hi " + selected_name + "! I'm available at " + user_hour + ":" + user_minute + ". Message me back at " + user_number + "!" 
+        var sendtonumber = "shikhar@u.northwestern.edu";
+        Parse.Cloud.run('sendSMS', { smsmessage: msg, number: sendtonumber}, {
+          success: function(result) {
+            // result is 'Hello world!'
+            console.log("" + JSON.stringify(result));
+          },
+          error: function(error) {
+            console.log("" + JSON.stringify(error));
+          }
+        });
+
+      })
+
 
     </script>
    
