@@ -160,7 +160,9 @@
 
       <!-- Make sure all your bars are the first things in your <body> -->
       <header class="bar bar-nav" >
+
         <h1 class="title">MealLink</h1>
+        <div style="position:relative;width:100%" align="right"><button class="btn btn-positive" id="logout"> Log out</button></div>
       </header>
 
       <!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
@@ -244,6 +246,10 @@
            window.location.href = "./result.html"
         });
 
+         $("#logout").on('click', function(){
+             Parse.User.logOut();
+             window.location.href = "./index.html"
+         });
       </script>
 
     </body>

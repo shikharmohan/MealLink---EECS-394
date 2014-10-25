@@ -145,7 +145,7 @@
         Parse.FacebookUtils.logIn(null, {
           success: function(user) {
             if (!user.existed()) {
-              alert("New User signed up and logged in through Facebook!");
+          
               newUser = true; 
               console.log("newUser" + newUser);
               FB.api('/me', function(response){
@@ -167,7 +167,7 @@
               }); 
             } 
             else {
-              alert("User logged in through Facebook!");
+            
               newUser = false; 
               console.log("new user?" + newUser);
               FB.api('/me', function(response){
