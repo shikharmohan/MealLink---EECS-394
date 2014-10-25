@@ -76,29 +76,47 @@
   <!-- get facebook element --> 
 
  <script>
+    var newUser = false; 
+    var loginError = false; 
     window.fbAsyncInit = function() {
       Parse.FacebookUtils.init({ // this line replaces FB.init({
         appId      : '1487754898165871', // Facebook App ID
-        status     : false, // check Facebook Login status
+        //status     : false, // check Facebook Login status
         cookie     : true, // enable cookies to allow Parse to access the session
         xfbml      : true,
         version: "v2.1"
     });
 
+
   FB.getLoginStatus(function(response) {
     if (response.status === "connected") {
       var uid = response.authResponse.userID;
       var accessToken = response.authResponse.accessToken;
-      window.location.href = './main.html'
+      FB.Event.subscribe('auth.login', function () {
+             window.location.href = "./form.html";
+        });
     }
     else {
-      return;
+      //return;    //   10/21 zexian comment this  
+      FB.login(); //   10/21 zexian add this  
     }
   });
 
 
+    // FB.getLoginStatus(function(response) {
+    //   if (response.status === "connected") {
+    //     var uid = response.authResponse.userID;
+    //     var accessToken = response.authResponse.accessToken;
+    //     window.location.href = './form.html';
+    //   }
+    //   else {
+    //     return;
+    //   }
+    // }, true);
+
+
     };
-  
+
   (function(d, s, id){
     var js, fjs = d.getElementsByTagName(s)[0];
     if (d.getElementById(id)) {return;}
@@ -113,26 +131,23 @@
     <title>My ParseApp site</title>
   </head>
   <body>
- 
     <!-- Make sure all your bars are the first things in your <body> -->
     <header class="bar bar-nav" >
       <h1 class="title">MealLink</h1>
     </header>
-    
     <div id="overlay" >
-  
-    <button class="btn btn-positive btn-block" id="login-button"  style="width:180px;margin-top:200px;margin-left:auto;margin-right:auto">Connect Facebook</button>
     </div>
+    <button class="btn btn-positive btn-block" id="login-button"  style="width:180px;margin-top:200px;margin-left:auto;margin-right:auto">Connect Facebook</button>
 
-
-</div>
 
 <script type="text/javascript">
   $("#login-button").on('click', function(){
         Parse.FacebookUtils.logIn(null, {
           success: function(user) {
             if (!user.existed()) {
-              alert("User signed up and logged in through Facebook!");
+              alert("New User signed up and logged in through Facebook!");
+              newUser = true; 
+              console.log("newUser" + newUser);
               FB.api('/me', function(response){
                 Parse.User.current().set('name', response.name);
                 Parse.User.current().set('email', response.email);
@@ -141,42 +156,46 @@
               });
               FB.api('/me/friends', function(response){
                 Parse.User.current().set('friends', JSON.stringify(response.data));
-                Parse.User.current().set('fb_id', response.data.id);
                 Parse.User.current().save();
+                window.location.href = './addnumber.html';
               });
               FB.api('me/picture', function(response){
                 if(response && !response.error){
                     Parse.User.current().set('profile_picture', response.data.url);
                     Parse.User.current().save();
                 }
-              });
-              window.location.href = './create.html'
+              }); 
             } 
             else {
               alert("User logged in through Facebook!");
+              newUser = false; 
+              console.log("new user?" + newUser);
               FB.api('/me', function(response){
+                alert('user'+response.name);
                 Parse.User.current().set('name', response.name);
                 Parse.User.current().set('email', response.email);
+                Parse.User.current().set('fb_id', response.id);
                 Parse.User.current().save();
               });
               FB.api('/me/friends', function(response){
                 Parse.User.current().set('friends', JSON.stringify(response.data));
-                Parse.User.current().set('fb_id', response.data.id);
                 Parse.User.current().save();
+                
               });
               FB.api('me/picture', function(response){
                     Parse.User.current().set('profile_picture', response.data.url);
                     Parse.User.current().save();
               });
-              window.location.href = './main.html'
             }
           },
           error: function(user, error) {
-            alert("User cancelled the Facebook login or did not fully authorize.");
             console.log(JSON.stringify(user));
             console.log(JSON.stringify(error));
+            loginError = true; 
           }
         });
+window.location.href = './form.html';
+        
 });
 </script>
 </body>

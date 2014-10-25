@@ -15,9 +15,8 @@
 
   <!--initialize parse --> 
   <script>
-    Parse.initialize("oOL3TebXo0CCT8Mm8OWN72Dq7H1LwNvaGrSUmZ8I","kYZjxpsriEyaK25EhmKw8TfrU9je7ycVcTI6DC65")
-
-
+    Parse.initialize("oOL3TebXo0CCT8Mm8OWN72Dq7H1LwNvaGrSUmZ8I","kYZjxpsriEyaK25EhmKw8TfrU9je7ycVcTI6DC65");
+    $("#txt").text(JSON.stringify(Parse.User.current()));
 
   </script>
 
@@ -171,7 +170,7 @@
 
 
 
-       <p align="center" style = "font-size: 18px">I want to eat in: </p>
+       <p id="txt" align="center" style = "font-size: 18px">I want to eat in: </p>
        <div style="margin: 10px">
         <p align="center">Hour</p>
         <div align = center>
@@ -240,7 +239,7 @@
 
           //call the function to get geolocation
           getLocation();
-          var delay=5000;//1 seconds
+          var delay=3000;//1 seconds
            setTimeout(function(){
 
            //your code to be executed after 1 seconds
