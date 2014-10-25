@@ -88,31 +88,31 @@
     });
 
 
-  FB.getLoginStatus(function(response) {
-    if (response.status === "connected") {
-      var uid = response.authResponse.userID;
-      var accessToken = response.authResponse.accessToken;
-      FB.Event.subscribe('auth.login', function () {
-             window.location.href = "./form.html";
-        });
-    }
-    else {
-      //return;    //   10/21 zexian comment this  
-      FB.login(); //   10/21 zexian add this  
-    }
-  });
+  // FB.getLoginStatus(function(response) {
+  //   if (response.status === "connected") {
+  //     var uid = response.authResponse.userID;
+  //     var accessToken = response.authResponse.accessToken;
+  //     FB.Event.subscribe('auth.login', function () {
+  //            window.location.href = "./form.html";
+  //       });
+  //   }
+  //   else {
+  //     //return;    //   10/21 zexian comment this  
+  //     FB.login(); //   10/21 zexian add this  
+  //   }
+  // });
 
 
-    // FB.getLoginStatus(function(response) {
-    //   if (response.status === "connected") {
-    //     var uid = response.authResponse.userID;
-    //     var accessToken = response.authResponse.accessToken;
-    //     window.location.href = './form.html';
-    //   }
-    //   else {
-    //     return;
-    //   }
-    // }, true);
+    FB.getLoginStatus(function(response) {
+      if (response.status === "connected") {
+        var uid = response.authResponse.userID;
+        var accessToken = response.authResponse.accessToken;
+        window.location.href = './form.html';
+      }
+      else {
+        return;
+      }
+    }, true);
 
 
     };
@@ -194,8 +194,13 @@
             loginError = true; 
           }
         });
-window.location.href = './form.html';
-        
+        var delay = 1000
+        setInterval(function(){
+          if (Parse.User.current() != null){
+            window.location.href = "./form.html";
+
+          }
+        },delay);         
 });
 </script>
 </body>
