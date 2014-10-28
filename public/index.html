@@ -171,7 +171,6 @@
               newUser = false; 
               console.log("new user?" + newUser);
               FB.api('/me', function(response){
-                alert('user'+response.name);
                 Parse.User.current().set('name', response.name);
                 Parse.User.current().set('email', response.email);
                 Parse.User.current().set('fb_id', response.id);
