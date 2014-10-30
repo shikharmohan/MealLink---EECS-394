@@ -70,7 +70,7 @@
     .person-name{
       display: inline-block;
       margin-left: 10px;
-      font-size: 40px;
+      font-size: 22px;
     }
     .availability{
       font-style:italic;
@@ -90,13 +90,6 @@
     </div>
     <span id="facebook_result" class="control-content active">
     <ul class="table-view">
-      <li class="table-view-cell" id = "fbCell1"><img src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpf1/v/t1.0-1/c195.55.548.548/s50x50/988686_10151585715386130_1175639374_n.jpg?oh=0ad7492d5c08fd97b343d36de3666062&oe=54AA97E2&__gda__=1424741424_90547460036388f6f7559e80cdffc03a">
-        <div class="person-name">Person0</div> 
-        <div class="availability">Available: 12:30PM</div>
-        <div class='distance'>0.5 miles</div>
-        <button class="smsbutton btn btn-primary">Say Hi!
-        </button>
-      </li>
     </ul>
     </span>
 
@@ -216,8 +209,8 @@
         "<div class='person-name'>" + names[i] + "</div>" +
         "<div class='availability'>Available: " + hour + ":" + minute + AMPM + "</div>" + 
         "<div class='distance'>" + distance[i] +" miles </div>" + 
-        "<button class='smsbutton btn btn-primary'>Say Hi!" + 
-        "</button></ul>")
+       "<button id='" + names[i] +  "-" + numbers[i] + "' class='smsbutton btn btn-primary'>Say Hi!" + 
+        "</button></ul>");
         }
       }
 //================================LOAD LINKEDIN CONNECTIONS=================================================================================================
@@ -285,8 +278,8 @@
         "<div class='headline'>" + headlines[i] + "</div>" +
         "<div class='availability'>Available: " + hour + ":" + minute + AMPM + "</div>" + 
         "<div class='distance'>" + distance[i] +" miles </div>" + 
-        "<button class='smsbutton btn btn-primary'>Say Hi!" + 
-        "</button></ul>")
+       "<button id='" + names[i] +  "-" + numbers[i] + "' class='smsbutton btn btn-primary'>Say Hi!" + 
+        "</button></ul>");
         }
       }
 
@@ -383,6 +376,7 @@
         arr = id.split("-");
         selected_name = arr[0];
         selected_number = arr[1];
+        alert("Greeting SMS sent to " + selected_name + "\n");
         console.log("button works");
 
         var currentUser = Parse.User.current();
@@ -391,8 +385,8 @@
         var user_minute = user_time.getMinutes();
         var user_number = currentUser.get('phone_number');
 
-        var msg = "Hi " + selected_name + "! I'm available at " + user_hour + ":" + user_minute + ". Message me back at " + user_number + "!" 
-        var sendtonumber = "shikhar@u.northwestern.edu";
+        var msg = "Hi " + selected_name + "! This is " + Parse.User.current().get('name') + " and I'm available at " + "11" + ":" + "30AM for lunch" + ". Message me back at " + user_number + "!" 
+        var sendtonumber = "+16123149428";
         Parse.Cloud.run('sendSMS', { smsmessage: msg, number: sendtonumber}, {
           success: function(result) {
             // result is 'Hello world!'
