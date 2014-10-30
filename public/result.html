@@ -64,6 +64,12 @@
       font-style:italic;
     }
 
+    .table-result {
+      overflow-y: scroll;
+      position:relative;
+      height:650px;
+    }
+
     </style>
     <title>My ParseApp site</title>  
   </head>
@@ -84,10 +90,12 @@
     </ul>
     </span>
 
-    <span id="nearby_result" class="control-content">
-      <ul class="table-view">
-      </ul>
-    </span>
+    <div class="table-result">
+      <span id="nearby_result" class="control-content">
+        <ul class="table-view">
+        </ul>
+      </span>
+    </div>
 
   <script>
   $("#fb_sc").on('click', function(){
@@ -236,7 +244,7 @@
               connection_numbers.push(currConnection.get('phone_number'));
               connection_starttime.push(currConnection.get('start_time'));
               connection_distance.push(currConnection.get('distance'));
-              connection_pictures.push(currConnection.get('profile_picture'));
+              connection_pictures.push(currConnection.get('pictureURL'));
               connection_headline.push(currConnection.get('headline'));
 
             }
