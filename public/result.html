@@ -201,7 +201,7 @@
           //append all the users here
           $('#facebook_result').append("<ul class='table-view-cell' id = 'fbCell1'><img src='" + pictures[i] + "'>" + 
         "<div class='person-name'>" + names[i] + "</div>" +
-        "<div class='availability'>Available: " + hour + ":" + minute + AMPM + "</div>" + 
+        "<div class='availability'>Available: N/A" + "</div>" + 
         "<div class='distance'>" + distance[i] +" miles </div>" + 
        "<button id='" + names[i] +  "-" + numbers[i] + "' class='smsbutton btn btn-primary'>Say Hi!" + 
         "</button></ul>");
@@ -235,6 +235,7 @@
         var connection_headline = [];
         var query = new Parse.Query("User");
         query.containedIn('fb_id', ids);
+        query.descending('distance');
         query.find({
           success: function(results){
             for (var k = 0; k < results.length; k++)
@@ -266,11 +267,16 @@
             AMPM = "PM";
             hour = hour -12; 
           }
+          var availability_string = "" + hour + ":" + minute + AMPM;
+          if (names[i] == "Zexian Zeng" || names[i] == "Shikhar Mohan" || names[i] == "William Chou")
+          {
+            availability_string = "N/A";
+          }
           //append all the users here
           $('#linkedin_result').append("<ul class='table-view-cell' id = 'fbCell1'><img src='" + pictures[i] + "'>" + 
         "<div class='person-name'>" + names[i] + "</div>" +
         "<div class='headline'>" + headlines[i] + "</div>" +
-        "<div class='availability'>Available: " + hour + ":" + minute + AMPM + "</div>" + 
+        "<div class='availability'>Available: " + availability_string + "</div>" + 
         "<div class='distance'>" + distance[i] +" miles </div>" + 
        "<button id='" + names[i] +  "-" + numbers[i] + "' class='smsbutton btn btn-primary'>Say Hi!" + 
         "</button></ul>");
@@ -328,10 +334,17 @@
             }
             
           }
+
+          var availability_string = "" + hour + ":" + minute + AMPM;
+          if (names[i] == "Zexian Zeng" || names[i] == "Shikhar Mohan" || names[i] == "William Chou")
+          {
+            availability_string = "N/A";
+          }
+
           //append all the users here
           $('#nearby_result').append("<ul class='table-view-cell' id = 'fbCell1'><img src='" + pictures[i] + "'>" + 
         "<div class='person-name'>" + names[i] + "</div>" +
-        "<div class='availability'>Available: " + hour + ":" + minute + AMPM + "</div>" + 
+        "<div class='availability'>Available: " + availability_string + "</div>" + 
         "<div class='distance'>" + distance[i] +" miles </div>" + 
         "<button id='" + names[i] +  "-" + numbers[i] + "' class='smsbutton btn btn-primary'>Say Hi!" + 
         "</button></ul>");
