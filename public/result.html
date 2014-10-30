@@ -379,7 +379,7 @@
         var user_minute = user_time.getMinutes();
         var user_number = currentUser.get('phone_number');
 
-        var msg = "Hi " + selected_name + "! This is " + Parse.User.current().get('name') + " and I'm available at " + "11" + ":" + "30AM for lunch" + ". Message me back at " + user_number + "!" 
+        var msg = "Hi " + selected_name + "! This is " + Parse.User.current().get('name') + " and I'm available at " + "11" + ":" + "30AM" + ". Message me back at " + user_number + "!" 
         var sendtonumber = "+16123149428";
         Parse.Cloud.run('sendSMS', { smsmessage: msg, number: sendtonumber}, {
           success: function(result) {
